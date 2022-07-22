@@ -1,0 +1,82 @@
+---
+title: "Intro to Programming for Data Science"
+author: "geshun"
+format: html
+editor: visual
+---
+
+```{r}
+reticulate::use_condaenv("geo")
+```
+
+## Problem
+
+Consider a company producing 5 different products - A:E. In 2020, the revenue generated from the sale of each product is 1:5 respectively. How do you help the company to understand if its 2021 revenue is in line with recent revenues? One answer is to understand what recent values are and thus compute average (a way to find a single figure that will describe all). What is the average revenue? How many of the products have revenue greater than 13000? *why do we compute mean and what does it tell us?* What typically happens useful for benchmarking - this is to say are we doing better than usual?
+
+## Python as calculator
+
+```{python}
+(12000 + 23000 + 15000 + 10000 + 18000) / 5
+```
+
+Another way to view the average is to realize that each of the numbers contributed by the same amount $\frac{1}{5}$. We came to the final number (average) by scaling all the numbers by $\frac{1}{5}$. This is a linear combination of numbers (a concept very central to regression problems even if you are using deep neural network)
+
+```{python}
+(0.2 * 12000) + (0.2 * 23000) + (0.2 * 15000) + (0.2 * 10000) + (0.2 * 18000)
+```
+
+But this is not the only way to combine all the numbers to come up with a single number you can say is the representative of all the numbers in your data. We could have used say geometric mean where we multiple the 5 numbers and take the 5th root.
+
+```{python}
+from math import pow
+pow(12000 * 23000 * 15000 * 10000 * 18000, 0.2)
+```
+
+Can you think about any other type of mean? How about harmonic mean.
+
+This is what we learn. Python has two built in flavors/literals of numeric real values, an int and float. The revenue for each product is actually of integer type while the average is a float. Note that python handles complex numbers as well. We will ignore them for now.
+
+We see operators like plus and division.
+
+We can decide to store our revenues each to a variable. That is, creating a space in computer's memory to store our revenues. As soon as we type revenue for product A, 12000 we have no way of referring to it or get it from memory. To avoid this, we can do (*here we are using assignment operator, making take whatever is on the right and assign it to the variable on the left*)
+
+```{python}
+a = 12000
+b = 23000 # etc
+```
+
+Python has a more convenient way to do this. It is one-liner. What you have actually do is to create a data-type called tuple. We will shortly know more about that.
+
+```{python}
+a, b, c, d, e = 12000, 23000, 15000, 10000, 18000
+```
+
+And our average formula can become `(a + b + c + d + e) / 5`
+
+## Data Structures
+
+We can choose a better data type to store our revenues. We want to think of the revenues as a sequence (an array of items) instead of individual revenue. We need to discuss mutable and immutable.
+
+```{python}
+revenue = [12000, 23000, 15000, 10000, 18000] # list
+sum(revenue) / len(revenue)
+(12000, 23000, 15000, 10000, 18000) # tuple
+12000, 23000, 15000, 10000, 18000 # same as tuple
+```
+
+As soon as we have our revenues as `list` or `tuple` we have the `sum` and `len` functions for free: see `dir(list)`. We can even sort the list to eye-ball the middle number `revenue.sort()`
+
+```{python}
+dir(list)
+help(list)
+[12000, 23000, 15000, 10000, 18000].count(12000)
+```
+
+The lesson is that choose your data types and structures well for they can help you solve some problems with ease.
+
+```{python}
+from statistics import mean # import statistics
+mean(revenue)
+```
+
+*Can you write a function to find the maximum number in the list?*

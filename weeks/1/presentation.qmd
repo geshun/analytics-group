@@ -1,0 +1,45 @@
+---
+title: "Intro to Programming for Data Science"
+format: 
+  revealjs:
+    theme: dark
+editor: visual
+---
+
+## Setup {.smaller}
+
+| Software                  | Download URL                                                                                                                              |
+|-------------------|-----------------------------------------------------|
+| R                         | [The Comprehensive R Archive Network (r-project.org)](https://cloud.r-project.org/)                                                       |
+| Rtools                    | [RTools: Toolchains for building R and R packages from source on Windows (r-project.org)](https://cran.r-project.org/bin/windows/Rtools/) |
+| RStudio                   | [Download the RStudio IDE - RStudio](https://www.rstudio.com/products/rstudio/download/)                                                  |
+| Python                    | [Download Python \| Python.org](https://www.python.org/downloads/)                                                                        |
+| Anaconda                  | [Anaconda \| Anaconda Distribution](https://www.anaconda.com/products/distribution)                                                       |
+| Quarto                    | [Quarto - Get Started](https://quarto.org/docs/get-started/)                                                                              |
+| VS Code                   | [Download Visual Studio Code - Mac, Linux, Windows](https://code.visualstudio.com/Download)                                               |
+| Git                       | [Git - Downloads (git-scm.com)](https://git-scm.com/downloads)                                                                            |
+| GitHub Desktop (optional) | [GitHub Desktop \| Simple collaboration from your desktop](https://desktop.github.com/)                                                   |
+
+**Passion to Grow**
+
+## Areas of Focus
+
+-   Tool and Platform: *Python, R, AWS, Docker, SQL*
+
+-   Methodology: *Regression, Classification*
+
+-   Thinking Process: *Framing analytical questions*
+
+-   Project Management: *Agile Framework - Jira, Version control, Documentation*
+
+## Method of Thought
+
+Analysis
+
+. . .
+
+Synthesis
+
+## Analytic Problem
+
+> In the past 5 year, $KN^3$ company recorded the following revenue: `12000, 23000, 15000, 10000, 18000`. How do you help $KN^3$ understand if it's 2022 revenue will be in line with recent revenues?
