@@ -9,7 +9,7 @@ editor: visual
 ## Setup {.smaller}
 
 | Software                  | Download URL                                                                                                                              |
-|------------------|------------------------------------------------------|
+|-------------------|-----------------------------------------------------|
 | R                         | [The Comprehensive R Archive Network (r-project.org)](https://cloud.r-project.org/)                                                       |
 | Rtools                    | [RTools: Toolchains for building R and R packages from source on Windows (r-project.org)](https://cran.r-project.org/bin/windows/Rtools/) |
 | RStudio                   | [Download the RStudio IDE - RStudio](https://www.rstudio.com/products/rstudio/download/)                                                  |
@@ -50,17 +50,21 @@ Opening the Jupyter notebook (`.ipynb`) or Quarto (`.qmd`)
 
 ## Method of Thought
 
-Analysis
+::: columns
+::: {.fragment .fade-in}
+  > Analysis *reveals a pattern - how it works (knowledge)*
+:::
 
-. . .
-
-Synthesis
+::: {.fragment .fade-in}
+  > Synthesis *reveals understanding - why it works the way it does*
+:::
+:::
 
 ## Analytic Problem
 
 > In the past 5 year, $KN^3$ company recorded the following revenue: `12000, 23000, 15000, 10000, 18000`. How do you help $KN^3$ understand if it's 2022 revenue will be in line with recent revenues?
 
-## Recap  {.smaller}
+## Recap {.smaller}
 
 1.  Data or values have types and can be reduced to the built in types - thus built in types are the indivisible types, helping us build all other types
 2.  Be mindful of the (properties of) data structure you choose sinces that affects the type of computation you can do with the data and the efficiency you can get
