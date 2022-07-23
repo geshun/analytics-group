@@ -16,69 +16,6 @@ span.underline{text-decoration: underline;}
 div.column{display: inline-block; vertical-align: top; width: 50%;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -126,225 +63,55 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </header>
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>reticulate<span class="sc">::</span><span class="fu">use_condaenv</span>(<span class="st">"geo"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
 </div>
-<section id="problem" class="level2">
-<h2 class="anchored" data-anchor-id="problem">Problem</h2>
-<p>Consider a company producing 5 different products - A:E. In 2020, the revenue generated from the sale of each product is 1:5 respectively. How do you help the company to understand if its 2021 revenue is in line with recent revenues? One answer is to understand what recent values are and thus compute average (a way to find a single figure that will describe all). What is the average revenue? How many of the products have revenue greater than 13000? <em>why do we compute mean and what does it tell us?</em> What typically happens useful for benchmarking - this is to say are we doing better than usual?</p>
+<section id="analytic-problem" class="level2">
+<h2 class="anchored" data-anchor-id="analytic-problem">Analytic Problem</h2>
+<blockquote class="blockquote">
+<p>In the past 5 years, <span class="math inline">\(KN^3\)</span> company recorded the following revenue: <code>12000, 23000, 15000, 10000, 18000</code>. How do you help <span class="math inline">\(KN^3\)</span> understand if it’s 2022 revenue will be in line with recent revenues?</p>
+</blockquote>
 </section>
 <section id="python-as-calculator" class="level2">
 <h2 class="anchored" data-anchor-id="python-as-calculator">Python as calculator</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">12000</span> <span class="op">+</span> <span class="dv">23000</span> <span class="op">+</span> <span class="dv">15000</span> <span class="op">+</span> <span class="dv">10000</span> <span class="op">+</span> <span class="dv">18000</span>) <span class="op">/</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>15600.0</code></pre>
-</div>
-</div>
-<p>Another way to view the average is to realize that each of the numbers contributed by the same amount <span class="math inline">\(\frac{1}{5}\)</span>. We came to the final number (average) by scaling all the numbers by <span class="math inline">\(\frac{1}{5}\)</span>. This is a linear combination of numbers (a concept very central to regression problems even if you are using deep neural network)</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>(<span class="fl">0.2</span> <span class="op">*</span> <span class="dv">12000</span>) <span class="op">+</span> (<span class="fl">0.2</span> <span class="op">*</span> <span class="dv">23000</span>) <span class="op">+</span> (<span class="fl">0.2</span> <span class="op">*</span> <span class="dv">15000</span>) <span class="op">+</span> (<span class="fl">0.2</span> <span class="op">*</span> <span class="dv">10000</span>) <span class="op">+</span> (<span class="fl">0.2</span> <span class="op">*</span> <span class="dv">18000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>15600.0</code></pre>
-</div>
-</div>
-<p>But this is not the only way to combine all the numbers to come up with a single number you can say is the representative of all the numbers in your data. We could have used say geometric mean where we multiple the 5 numbers and take the 5th root.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> <span class="bu">pow</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">pow</span>(<span class="dv">12000</span> <span class="op">*</span> <span class="dv">23000</span> <span class="op">*</span> <span class="dv">15000</span> <span class="op">*</span> <span class="dv">10000</span> <span class="op">*</span> <span class="dv">18000</span>, <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>14943.577121499638</code></pre>
-</div>
-</div>
-<p>Can you think about any other type of mean? How about harmonic mean.</p>
-<p>This is what we learn. Python has two built in flavors/literals of numeric real values, an int and float. The revenue for each product is actually of integer type while the average is a float. Note that python handles complex numbers as well. We will ignore them for now.</p>
-<p>We see operators like plus and division.</p>
-<p>We can decide to store our revenues each to a variable. That is, creating a space in computer’s memory to store our revenues. As soon as we type revenue for product A, 12000 we have no way of referring to it or get it from memory. To avoid this, we can do (<em>here we are using assignment operator, making take whatever is on the right and assign it to the variable on the left</em>)</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">12000</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="dv">23000</span> <span class="co"># etc</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Python has a more convenient way to do this. It is one-liner. What you have actually do is to create a data-type called tuple. We will shortly know more about that.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>a, b, c, d, e <span class="op">=</span> <span class="dv">12000</span>, <span class="dv">23000</span>, <span class="dv">15000</span>, <span class="dv">10000</span>, <span class="dv">18000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>And our average formula can become <code>(a + b + c + d + e) / 5</code></p>
-</section>
-<section id="data-structures" class="level2">
-<h2 class="anchored" data-anchor-id="data-structures">Data Structures</h2>
-<p>We can choose a better data type to store our revenues. We want to think of the revenues as a sequence (an array of items) instead of individual revenue. We need to discuss mutable and immutable.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>revenue <span class="op">=</span> [<span class="dv">12000</span>, <span class="dv">23000</span>, <span class="dv">15000</span>, <span class="dv">10000</span>, <span class="dv">18000</span>] <span class="co"># list</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">sum</span>(revenue) <span class="op">/</span> <span class="bu">len</span>(revenue)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>15600.0</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">12000</span>, <span class="dv">23000</span>, <span class="dv">15000</span>, <span class="dv">10000</span>, <span class="dv">18000</span>) <span class="co"># tuple</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>(12000, 23000, 15000, 10000, 18000)</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="dv">12000</span>, <span class="dv">23000</span>, <span class="dv">15000</span>, <span class="dv">10000</span>, <span class="dv">18000</span> <span class="co"># same as tuple</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>(12000, 23000, 15000, 10000, 18000)</code></pre>
-</div>
-</div>
-<p>As soon as we have our revenues as <code>list</code> or <code>tuple</code> we have the <code>sum</code> and <code>len</code> functions for free: see <code>dir(list)</code>. We can even sort the list to eye-ball the middle number <code>revenue.sort()</code></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">dir</span>(<span class="bu">list</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>['__add__', '__class__', '__contains__', '__delattr__', '__delitem__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getitem__', '__gt__', '__hash__', '__iadd__', '__imul__', '__init__', '__init_subclass__', '__iter__', '__le__', '__len__', '__lt__', '__mul__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__reversed__', '__rmul__', '__setattr__', '__setitem__', '__sizeof__', '__str__', '__subclasshook__', 'append', 'clear', 'copy', 'count', 'extend', 'index', 'insert', 'pop', 'remove', 'reverse', 'sort']</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="bu">help</span>(<span class="bu">list</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Help on class list in module builtins:
 
-class list(object)
- |  list(iterable=(), /)
- |  
- |  Built-in mutable sequence.
- |  
- |  If no argument is given, the constructor creates a new empty list.
- |  The argument must be an iterable if specified.
- |  
- |  Methods defined here:
- |  
- |  __add__(self, value, /)
- |      Return self+value.
- |  
- |  __contains__(self, key, /)
- |      Return key in self.
- |  
- |  __delitem__(self, key, /)
- |      Delete self[key].
- |  
- |  __eq__(self, value, /)
- |      Return self==value.
- |  
- |  __ge__(self, value, /)
- |      Return self&gt;=value.
- |  
- |  __getattribute__(self, name, /)
- |      Return getattr(self, name).
- |  
- |  __getitem__(...)
- |      x.__getitem__(y) &lt;==&gt; x[y]
- |  
- |  __gt__(self, value, /)
- |      Return self&gt;value.
- |  
- |  __iadd__(self, value, /)
- |      Implement self+=value.
- |  
- |  __imul__(self, value, /)
- |      Implement self*=value.
- |  
- |  __init__(self, /, *args, **kwargs)
- |      Initialize self.  See help(type(self)) for accurate signature.
- |  
- |  __iter__(self, /)
- |      Implement iter(self).
- |  
- |  __le__(self, value, /)
- |      Return self&lt;=value.
- |  
- |  __len__(self, /)
- |      Return len(self).
- |  
- |  __lt__(self, value, /)
- |      Return self&lt;value.
- |  
- |  __mul__(self, value, /)
- |      Return self*value.
- |  
- |  __ne__(self, value, /)
- |      Return self!=value.
- |  
- |  __repr__(self, /)
- |      Return repr(self).
- |  
- |  __reversed__(self, /)
- |      Return a reverse iterator over the list.
- |  
- |  __rmul__(self, value, /)
- |      Return value*self.
- |  
- |  __setitem__(self, key, value, /)
- |      Set self[key] to value.
- |  
- |  __sizeof__(self, /)
- |      Return the size of the list in memory, in bytes.
- |  
- |  append(self, object, /)
- |      Append object to the end of the list.
- |  
- |  clear(self, /)
- |      Remove all items from list.
- |  
- |  copy(self, /)
- |      Return a shallow copy of the list.
- |  
- |  count(self, value, /)
- |      Return number of occurrences of value.
- |  
- |  extend(self, iterable, /)
- |      Extend list by appending elements from the iterable.
- |  
- |  index(self, value, start=0, stop=9223372036854775807, /)
- |      Return first index of value.
- |      
- |      Raises ValueError if the value is not present.
- |  
- |  insert(self, index, object, /)
- |      Insert object before index.
- |  
- |  pop(self, index=-1, /)
- |      Remove and return item at index (default last).
- |      
- |      Raises IndexError if list is empty or index is out of range.
- |  
- |  remove(self, value, /)
- |      Remove first occurrence of value.
- |      
- |      Raises ValueError if the value is not present.
- |  
- |  reverse(self, /)
- |      Reverse *IN PLACE*.
- |  
- |  sort(self, /, *, key=None, reverse=False)
- |      Sort the list in ascending order and return None.
- |      
- |      The sort is in-place (i.e. the list itself is modified) and stable (i.e. the
- |      order of two equal elements is maintained).
- |      
- |      If a key function is given, apply it once to each list item and sort them,
- |      ascending or descending, according to their function values.
- |      
- |      The reverse flag can be set to sort in descending order.
- |  
- |  ----------------------------------------------------------------------
- |  Static methods defined here:
- |  
- |  __new__(*args, **kwargs) from builtins.type
- |      Create and return a new object.  See help(type) for accurate signature.
- |  
- |  ----------------------------------------------------------------------
- |  Data and other attributes defined here:
- |  
- |  __hash__ = None</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">12000</span>, <span class="dv">23000</span>, <span class="dv">15000</span>, <span class="dv">10000</span>, <span class="dv">18000</span>].count(<span class="dv">12000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>1</code></pre>
-</div>
-</div>
-<p>The lesson is that choose your data types and structures well for they can help you solve some problems with ease.</p>
+<section id="mean-as-linear-combination---weighted" class="level3">
+<h3 class="anchored" data-anchor-id="mean-as-linear-combination---weighted">Mean as Linear Combination - Weighted</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statistics <span class="im">import</span> mean <span class="co"># import statistics</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>mean(revenue)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>15600</code></pre>
+
 </div>
+</section>
+<section id="another-kind-of-mean" class="level3">
+<h3 class="anchored" data-anchor-id="another-kind-of-mean">Another Kind of Mean</h3>
+<div class="cell">
+
 </div>
-<p><em>Can you write a function to find the maximum number in the list?</em></p>
+</section>
+<section id="persistence---refer-to-value-in-memory" class="level3">
+<h3 class="anchored" data-anchor-id="persistence---refer-to-value-in-memory">Persistence - Refer to value in memory</h3>
+<div class="cell">
+
+</div>
+</section>
+</section>
+<section id="sequencing-structures-and-collection" class="level2">
+<h2 class="anchored" data-anchor-id="sequencing-structures-and-collection">Sequencing Structures and Collection</h2>
+<div class="cell">
+
+</div>
+<section id="indexing-and-slicing" class="level3">
+<h3 class="anchored" data-anchor-id="indexing-and-slicing">Indexing and Slicing</h3>
+<div class="cell">
+
+</div>
+</section>
+<section id="looping" class="level3">
+<h3 class="anchored" data-anchor-id="looping">Looping</h3>
+<div class="cell">
+
+</div>
+</section>
 </section>
 
 </main>
