@@ -9,7 +9,7 @@ editor: visual
 ## Setup {.smaller}
 
 | Software                  | Download URL                                                                                                                              |
-|-------------------|-----------------------------------------------------|
+|---------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
 | R                         | [The Comprehensive R Archive Network (r-project.org)](https://cloud.r-project.org/)                                                       |
 | Rtools                    | [RTools: Toolchains for building R and R packages from source on Windows (r-project.org)](https://cran.r-project.org/bin/windows/Rtools/) |
 | RStudio                   | [Download the RStudio IDE - RStudio](https://www.rstudio.com/products/rstudio/download/)                                                  |
@@ -52,11 +52,11 @@ Opening the Jupyter notebook (`.ipynb`) or Quarto (`.qmd`)
 
 ::: columns
 ::: {.fragment .fade-in}
-  > Analysis *reveals a pattern - how it works (knowledge)*
+> Analysis *reveals a pattern - how it works (knowledge)*
 :::
 
 ::: {.fragment .fade-in}
-  > Synthesis *reveals understanding - why it works the way it does*
+> Synthesis *reveals understanding - why it works the way it does*
 :::
 :::
 
