@@ -60,6 +60,8 @@ We can choose a better data type to store our revenues. We want to think of the 
 ```{python}
 revenue = [12000, 23000, 15000, 10000, 18000] # list
 sum(revenue) / len(revenue)
+revenue[0], revenue[-1], revenue[::2] #first, last, every other
+revenue[::len(revenue)-1] # first and last
 (12000, 23000, 15000, 10000, 18000) # tuple
 12000, 23000, 15000, 10000, 18000 # same as tuple
 ```
@@ -80,3 +82,57 @@ mean(revenue)
 ```
 
 *Can you write a function to find the maximum number in the list?*
+
+```{python}
+result = []
+for x in revenue:
+  if x > 13000:
+    result.append(x)
+
+result
+```
+
+```{python}
+[x for x in revenue if x > 13000] # list comprehension
+```
+
+```{python}
+result = 0
+for x in revenue:
+  result += x
+  # resul = result + x
+
+result
+
+res = 0
+i = 0
+while i < len(revenue):
+  res += revenue[i]
+  i += 1
+  
+res
+```
+
+```{python}
+n_element = 0
+for x in revenue:
+  n_element += 1
+  
+n_element
+```
+
+How do we bring in our years information so that we get a sense of which revenue is which year? We want to treat the years as data, that is, a piece of information we can store and manipulate. use this to introduce the `range` function. A list can contain another list or a different data type
+
+```{python}
+range(2017, 2022) # last is ignore and thus 2022
+rev_info = [list(range(2017, 2022)), revenue]
+len(rev_info[0]) == len(rev_info[1])
+```
+
+### Recap
+
+1.  Data or values have types and can be reduced to the built in types - thus built in types are the indivisible types, helping us build all other types
+2.  Be mindful of the data structure you choose since that affects the type of computation you can do with the data and the assistance you can get
+3.  On methodology, we realized there are alternatives to arithmetic mean and we now understand why we look at the mean
+4.  With regards to code management, we connected or forked a git hub repo, staged our changes and committed
+5.  Appreciated how reductionist approach help us to think through a problem and help us write modular code - thus code that work independently.

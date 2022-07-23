@@ -9,7 +9,7 @@ editor: visual
 ## Setup {.smaller}
 
 | Software                  | Download URL                                                                                                                              |
-|-------------------|-----------------------------------------------------|
+|---------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
 | R                         | [The Comprehensive R Archive Network (r-project.org)](https://cloud.r-project.org/)                                                       |
 | Rtools                    | [RTools: Toolchains for building R and R packages from source on Windows (r-project.org)](https://cran.r-project.org/bin/windows/Rtools/) |
 | RStudio                   | [Download the RStudio IDE - RStudio](https://www.rstudio.com/products/rstudio/download/)                                                  |
@@ -24,13 +24,13 @@ editor: visual
 
 ## Areas of Focus
 
--   Tool and Platform: *Python, R, AWS, Docker, SQL*
+-   **Tool and Platform**: *Python, R, AWS, Docker, SQL*
 
--   Methodology: *Regression, Classification*
+-   **Methodology**: *Regression, Classification*
 
--   Thinking Process: *Framing analytical questions*
+-   **Thinking Process**: *Framing analytical questions*
 
--   Project Management: *Agile Framework - Jira, Version control, Documentation*
+-   **Project Management**: *Agile Framework - Jira, Version control, Documentation*
 
 ## Method of Thought
 
