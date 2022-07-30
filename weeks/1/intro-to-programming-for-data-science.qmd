@@ -12,46 +12,58 @@ reticulate::use_condaenv("base")
 
 ## Analytic Problem
 
-> In the past 5 years, $KN^3$ company recorded the following revenue: `12000, 23000, 15000, 10000, 18000`. How do you help $KN^3$ understand if it's 2022 revenue will be in line with recent revenues?
+> Between the years 2016 and 2020, $KN^3$ company recorded the following revenue: `12000, 23000, 15000, 10000, 18000` respectively. How do you help $KN^3$ understand if it's 2021 revenue is in line with recent revenues?
 
 ## Python as calculator
 
-```{python}
+*Probably your first use of python programming language is as a calculator*.
 
+```{python}
+(12000 + 23000 + 15000 + 10000 + 18000) / 5
 ```
 
-### Mean as Linear Combination - Weighted
+## Mean as Linear Combination - Weighted
 
 ```{python}
-
+0.2*12000 + 0.2*23000 + 0.2*15000 + 0.2*10000 + 0.2*18000
 ```
 
 ### Another Kind of Mean
 
 ```{python}
-
+(12000 * 23000 * 15000 * 10000 * 18000) ** (0.2)
 ```
 
-### Persistence - Refer to value in memory
+This way of computing mean is the geometric mean. That also gives us a value (though different from that arithmetic mean) we can compare our 2021 revenue with. See the mathematical representation below.
+
+### To Do
+
+1.  Calculate the harmonic mean of the revenues and compare it with the arithmetic and geometric means. What can you say about the three means (arithmetic, geometric and harmonic)?
 
 ```{python}
-
+# Calculate the harmonic mean of the revenues.
+# 5 / ((1/12000) + (1/23000) + (1/15000) + (1/10000) + (1/18000))
 ```
 
-## Sequencing Structures and Collection
+What have we learned so far about python programming language? We have been exposed to basic python syntax and seen some arithmetic operators like addition (`+`), division (`/`), multiplication (`*`), and exponent (`**`). We encountered some data types. For instance, our revenues are integers (e.g., `12000`), however, the result of our mean calculation is a float (e.g., `15600.0`), typically recognized by the presence of decimal point in the number. You can verify this by typing in the interpreter or console, `type(12000)` and `type(15600.0)`. If we insist that our arithmetic mean should be an integer, know that python has a concept of integer division, thus instead of `/`, we do `//`. Try this: `(12000 + 23000 + 15000 + 10000 + 18000) // 5`.
+
+Remember, the idea of operators and data types form the basis of a programming language. If we understand the basis well enough, we can assemble our knowledge into constructing complicated code in python, employing the analytical method of inquiry we talked about.
+
+## Persistence - Refer to value in memory
+
+If we want to use the result of our geometric mean for instance, we have to compute it again. The initial computation is lost it in the sea of the computer's memory. To let it persist and hence re-use it, we have to assign it to a variable.
 
 ```{python}
-
+mean_rev = (12000 * 23000 * 15000 * 10000 * 18000) ** (0.2)
+mean_rev
 ```
 
-### Indexing and Slicing
+Be mindful of the name of the variable, Python has rules on how to construct a valid variable name. You will get used to the rules very quickly but try and use a descriptive name that to some extent describes the value it contains. For instance, we can infer from `mean_rev` that it refers to the mean of revenues.
+
+The assignment operator `=` is used to assign what is on the right hand side (RHS) to the variable on the left hand side (LHS) of the operator. Python will first compute the expression on the RHS and then assign the result to the variable on the LHS of the operator.
+
+Remember the integer division `//` that returns an integer after dividing two numbers? A more general way to enforce a numeric value like `mean_rev` (which is a float) to be an integer is by casting it by wrapping it in `int` constructor function.
 
 ```{python}
-
-```
-
-### Looping
-
-```{python}
-
+int(mean_rev)
 ```

@@ -1,0 +1,379 @@
+---
+title: "Intro to Programming for Data Science"
+author: "geshun"
+format: html
+editor: visual
+---
+
+```{r}
+#| echo: false
+reticulate::use_condaenv("base")
+```
+
+## Analytic Problem
+
+> Between the years 2016 and 2020, $KN^3$ company recorded the following revenue: `12000, 23000, 15000, 10000, 18000` respectively. How do you help $KN^3$ understand if it's 2021 revenue is in line with recent revenues?
+
+## Python as calculator
+
+*Probably your first use of python programming language is as a calculator*.
+
+```{python}
+(12000 + 23000 + 15000 + 10000 + 18000) / 5
+```
+
+## Mean as Linear Combination - Weighted
+
+```{python}
+0.2*12000 + 0.2*23000 + 0.2*15000 + 0.2*10000 + 0.2*18000
+```
+
+### Another Kind of Mean
+
+```{python}
+(12000 * 23000 * 15000 * 10000 * 18000) ** (0.2)
+```
+
+This way of computing mean is the geometric mean. That also gives us a value (though different from that arithmetic mean) we can compare our 2021 revenue with. See the mathematical representation below.
+
+### To Do
+
+1.  Calculate the harmonic mean of the revenues and compare it with the arithmetic and geometric means. What can you say about the three means (arithmetic, geometric and harmonic)?
+
+```{python}
+# Calculate the harmonic mean of the revenues.
+# 5 / ((1/12000) + (1/23000) + (1/15000) + (1/10000) + (1/18000))
+```
+
+What have we learned so far about python programming language? We have been exposed to basic python syntax and seen some arithmetic operators like addition (`+`), division (`/`), multiplication (`*`), and exponent (`**`). We encountered some data types. For instance, our revenues are integers (e.g., `12000`), however, the result of our mean calculation is a float (e.g., `15600.0`), typically recognized by the presence of decimal point in the number. You can verify this by typing in the interpreter or console, `type(12000)` and `type(15600.0)`. If we insist that our arithmetic mean should be an integer, know that python has a concept of integer division, thus instead of `/`, we do `//`. Try this: `(12000 + 23000 + 15000 + 10000 + 18000) // 5`.
+
+Remember, the idea of operators and data types form the basis of a programming language. If we understand the basis well enough, we can assemble our knowledge into constructing complicated code in python, employing the analytical method of inquiry we talked about.
+
+## Persistence - Refer to value in memory
+
+If we want to use the result of our geometric mean for instance, we have to compute it again. The initial computation is lost it in the sea of the computer's memory. To let it persist and hence re-use it, we have to assign it to a variable.
+
+```{python}
+mean_rev = (12000 * 23000 * 15000 * 10000 * 18000) ** (0.2)
+mean_rev
+```
+
+Be mindful of the name of the variable, Python has rules on how to construct a valid variable name. You will get used to the rules very quickly but try and use a descriptive name that to some extent describes the value it contains. For instance, we can infer from `mean_rev` that it refers to the mean of revenues.
+
+The assignment operator `=` is used to assign what is on the right hand side (RHS) to the variable on the left hand side (LHS) of the operator. Python will first compute the expression on the RHS and then assign the result to the variable on the LHS of the operator.
+
+Remember the integer division `//` that returns an integer after dividing two numbers? A more general way to enforce a numeric value like `mean_rev` (which is a float) to be an integer is by casting it by wrapping it in `int` constructor function.
+
+```{python}
+int(mean_rev)
+```
+
+## Comparison and Containment Operators
+
+```{python}
+mean_rev == 16000
+mean_rev != 16000 # opposite of equality 
+```
+
+### To Do
+
+What operators will you use to check if a value is less than or equal to another? Give example.
+
+```{python}
+
+```
+
+## If Statement
+
+```{python}
+if 16000 > mean_rev:
+  print('above typical revenue') 
+```
+
+To specify what happens when the condition is false, we can include the `else` statement.
+
+```{python}
+if 16000 < mean_rev:
+  print("below typical revenue")
+else:
+  print('above typical revenue')
+```
+
+Realize that the `else` part does not take a condition but a way to execute a code when the condition in the `if` statement is `False`. Congratulations, you just added another programming vocabulary or trick to your collections. The `if-else` statement helps in decision making based on a set of conditions being true or false.
+
+You just came into contact with the string data type in Python, the value inside the `print()` function. We can do so with either a single `'` or double `"` quote.
+
+### Ternary Operator
+
+Python has a concise one-liner for writing if-else statement. I recommend using it when dealing with simple if-else constructs.
+
+    [result_when_true] if [condition] else [result_when_false]
+
+```{python}
+'below typical revenue' if 16000 < mean_rev else 'below typical revenue'
+```
+
+## Sequencing Structures and Collection
+
+```{python}
+revenues = [12000, 23000, 15000, 10000, 18000]
+revenues
+```
+
+Using a sequencing data structure like a list to store our revenues give us some super powers. We can employ Python functions that work on `iterable` objects. Two common ones used are the `sum` (which adds up the numbers in the list) and `len` (which finds the number of items in the list). With these two functions, we can compute the arithmetic mean as follows:
+
+```{python}
+sum(revenues) / len(revenues)
+```
+
+Check if the company has in the past recorded a `16000` revenue. We do this with the `in` containment operator.
+
+```{python}
+16000 in revenues
+16000 not in revenues # opposite of item in a list
+```
+
+### To Do
+
+Find the maximum and minimum values in our list.
+
+```{python}
+# Find the maximum and minimum values in our list.
+```
+
+### List Object Methods
+
+There are special functions designed to work on lists. Those are called methods. Just a fancy name for functions that belong to a certain class. Use `dir(list)` to see them. Since our `revenues` variable is an instance of a list, we could also do `dir(revenues)`. For now, pay attention to only those objects without two underscores preceding and ending. Let us create a copy of our list:
+
+```{python}
+revenues_copy = revenues.copy()
+revenues_copy
+```
+
+Since the `copy()` function is a method (that is belongs to things that are list), we call it differently using the dot accesser. We can add more items to our copied list using the `append()` method.
+
+```{python}
+revenues_copy.append(16000)
+revenues_copy
+```
+
+### Importing Modules
+
+It will be nice to have a function that computes mean of list of numbers. Such a function exists but we will have to import it. That is to say, making it available in our working environment. The `statistics` package that comes with vanilla Python has `mean()` function. However, there is a package called `numpy` which because of future work, I want us to begin using.
+
+Since, we are using Anaconda distribution, it comes with `numpy` package installed. So we just use the import keyword to get it into our current working environment. To access the `mean()` function from the `numpy` package, we write the name of the package and then the dot accessor followed by the object or function we want from the package.
+
+```{python}
+import numpy
+numpy.mean(revenues)
+```
+
+Doing `import numpy` brings with it all the objects that come with it. If we are sure that the mean function is the only one we will need from the numpy library, we can import just that.
+
+```{python}
+from numpy import mean
+mean(revenues)
+```
+
+### Indexing and Slicing
+
+The items in our list are ordered. That is to say, we can refer to them by their index (position) in the list. Python is zero-based index. Thus, the first element occupies the $0^{th}$ position in the list. Also, suppose there are 5 elements in a list, the last element will be in the $4^{th}$ position.
+
+```{python}
+revenues[0] # get 1st element
+revenues[1] # get 2nd element
+revenues[-1] # get last element
+revenues[len(revenues) - 1] # get last element (len(revenue) == 5)
+revenues[4]
+```
+
+The general slicing structure of a sequence object in python is `x[start:end:step]`. Remember, python does not include the `end` integer in slicing.
+
+```{python}
+revenues[0:-1:2] # start from the first, to the last (but exclude it) and move every other item
+revenues[::2] # every other item
+revenues[:3] # first 3 items
+revenues[-3:] # last 3 items
+```
+
+### Looping
+
+```{python}
+result = []
+for rev in revenues: # loop by item
+  result.append(rev + 1000)
+  
+result
+```
+
+Note that `rev` variable used in the `for` loop can be any valid python variable. It is just a placeholder to traverse all the items in the revenues list. When we get an item that is in the list, we add `1000` to it and then append it to our empty list.
+
+```{python}
+result = [] # list initialization
+i = 0 # counter initialization
+while i < len(revenues):
+  result.append(revenues[i] + 1000)
+  i = i + 1 # i += 1
+  
+result
+```
+
+### To Do
+
+Re-write the `for` loop above using a counter like we did with the `while` loop
+
+```{python}
+
+```
+
+### List Comprehension
+
+```{python}
+doubled_revenues = []
+for revenue in revenues:
+  doubled_revenues.append(2 * revenue)
+doubled_revenues
+```
+
+Python has list comprehension construct that helps us achieve the same effect but with less and concise code.
+
+```{python}
+[2 * revenue for revenue in revenues]
+```
+
+### To avoid loops
+
+```{python}
+numpy.array([12000, 23000, 15000, 10000, 18000]) * 2
+```
+
+### To Do
+
+1.  Show that the arithmetic mean of `doubled_revenues` is twice the arithmetic mean of revenues.
+
+```{python}
+mean(doubled_revenues) == 2 * mean(revenues)
+```
+
+2.  Find the arithmetic mean of revenues after adding `1000` to each of them. Compare with the mean of the original revenues.
+
+```{python}
+result = [revenue + 1000 for revenue in revenues]
+mean(result) == 1000 + mean(revenues)
+```
+
+### Combining Control and Loop
+
+Get all the revenues less than the mean. Or find how many of the revenue are less than the average. Will you say the distribution is skewed? Proportion of revenues below and above the average.
+
+```{python}
+result = []
+for revenue in revenues:
+  if revenue < mean_rev:
+    result.append(True)
+  else:
+    result.append(False)
+    
+result, sum(result), numpy.mean(result)
+# find proportion greater using 1 - numpy.mean(result)
+```
+
+We learn about the coercion rule that Python internally treats True as 1 and False as 0. Very useful for finding the number and proportion that meet a criteria.
+
+```{python}
+result = [True if rev < mean_rev else False for rev in revenues]
+result, sum(result), numpy.mean(result)
+```
+
+## All Together with Functions
+
+Let us put together all that we have learned to write our own function for computing mean. To define a function in Python we use the def keyword.
+
+```{python}
+def arithmetic_mean(x):
+  """finds arithmetic mean of a list of numbers"""
+  result = sum(x) / len(x)
+  return result
+
+arithmetic_mean(revenues)
+```
+
+```{python}
+def product(x):
+  """finds product of values in a list"""
+  result = 1
+  for val in x:
+    result *= val
+  return result
+
+product(revenues)
+```
+
+Now we can use the `product()` function in a new function that computes the geometric mean.
+
+```{python}
+def geometric_mean(x):
+  result = product(x) ** (1 / len(x))
+  return result
+
+geometric_mean(revenues)
+```
+
+Finally, we write a function for computing the harmonic mean. Can you justify why inverting the elements of a list is included in the `harmonic_mean()` function? In other words, we did not write a separate function for that.
+
+```{python}
+def harmonic_mean(x):
+  x = [1 / val for val in x]
+  result = len(x) / sum(x)
+  return result
+
+harmonic_mean(revenues)
+```
+
+Compare the three means.
+
+```{python}
+harmonic_mean(revenues) <= geometric_mean(revenues) <= arithmetic_mean(revenues)
+```
+
+Put all the functions in a python file. A Python file should have the extension `.py`.
+
+### Object Oriented Approach
+
+```{python}
+from ameans import Means
+  
+x = Means(revenues)
+x.arithmetic_mean(), x.geometric_mean(), x.harmonic_mean()
+```
+
+### Functional Approach
+
+```{python}
+from ameans import *
+harmonic_mean(revenues), geometric_mean(revenues), arithmetic_mean(revenues)
+```
+
+## Store the revenue year
+
+We can do this by creating another list.
+
+```{python}
+years = range(2016, 2021)
+# list(years)
+# list(zip(years, revenues))
+for year, revenue in zip(years, revenues):
+  print(f"for the year {year} revenue was {revenue}")
+```
+
+## Dictionary
+
+```{python}
+year_revenue = {"year": range(2016, 2021), "revenue": [12000, 23000, 15000, 10000, 18000]}
+year_revenue
+```
+
+```{python}
+from pandas import DataFrame
+DataFrame(year_revenue)
+```

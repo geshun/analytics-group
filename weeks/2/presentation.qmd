@@ -1,0 +1,27 @@
+---
+title: "Intro to Programming for Data Science"
+format: 
+  revealjs:
+    theme: dark
+editor: visual
+---
+
+|     |
+|-----|
+|     |
+
+## Method of Thought
+
+::: columns
+::: {.fragment .fade-in}
+> Analysis *reveals a pattern - how it works (knowledge)*
+:::
+
+::: {.fragment .fade-in}
+> Synthesis *reveals understanding - why it works the way it does*
+:::
+:::
+
+## Analytic Problem
+
+> Between the years 2016 and 2020, $KN^3$ company recorded the following revenue: `12000, 23000, 15000, 10000, 18000` respectively. How do you help $KN^3$ understand if it's 2021 revenue is in line with recent revenues?

@@ -44,6 +44,8 @@ Opening the Jupyter notebook (`.ipynb`) or Quarto (`.qmd`)
 
 -   **Methodology**: *Regression, Classification*
 
+-   **Software Engineering**: *Unit testing*
+
 -   **Thinking Process**: *Framing analytical questions*
 
 -   **Project Management**: *Agile Framework - Jira, Version control, Documentation*

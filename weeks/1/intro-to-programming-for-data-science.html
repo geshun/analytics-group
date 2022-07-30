@@ -16,6 +16,69 @@ span.underline{text-decoration: underline;}
 div.column{display: inline-block; vertical-align: top; width: 50%;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -62,56 +125,88 @@ ul.task-list{list-style: none;}
 
 </header>
 
-<div class="cell">
-
-</div>
 <section id="analytic-problem" class="level2">
 <h2 class="anchored" data-anchor-id="analytic-problem">Analytic Problem</h2>
 <blockquote class="blockquote">
-<p>In the past 5 years, <span class="math inline">\(KN^3\)</span> company recorded the following revenue: <code>12000, 23000, 15000, 10000, 18000</code>. How do you help <span class="math inline">\(KN^3\)</span> understand if it’s 2022 revenue will be in line with recent revenues?</p>
+<p>Between the years 2016 and 2020, <span class="math inline">\(KN^3\)</span> company recorded the following revenue: <code>12000, 23000, 15000, 10000, 18000</code> respectively. How do you help <span class="math inline">\(KN^3\)</span> understand if it’s 2021 revenue is in line with recent revenues?</p>
 </blockquote>
 </section>
 <section id="python-as-calculator" class="level2">
 <h2 class="anchored" data-anchor-id="python-as-calculator">Python as calculator</h2>
-<div class="cell">
-
+<p><em>Probably your first use of python programming language is as a calculator</em>.</p>
+<div class="cell" data-execution_count="1">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">12000</span> <span class="op">+</span> <span class="dv">23000</span> <span class="op">+</span> <span class="dv">15000</span> <span class="op">+</span> <span class="dv">10000</span> <span class="op">+</span> <span class="dv">18000</span>) <span class="op">/</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="25">
+<pre><code>15600.0</code></pre>
 </div>
-<section id="mean-as-linear-combination---weighted" class="level3">
-<h3 class="anchored" data-anchor-id="mean-as-linear-combination---weighted">Mean as Linear Combination - Weighted</h3>
-<div class="cell">
-
 </div>
 </section>
+<section id="mean-as-linear-combination---weighted" class="level2">
+<h2 class="anchored" data-anchor-id="mean-as-linear-combination---weighted">Mean as Linear Combination - Weighted</h2>
+<div class="cell" data-execution_count="2">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.2</span><span class="op">*</span><span class="dv">12000</span> <span class="op">+</span> <span class="fl">0.2</span><span class="op">*</span><span class="dv">23000</span> <span class="op">+</span> <span class="fl">0.2</span><span class="op">*</span><span class="dv">15000</span> <span class="op">+</span> <span class="fl">0.2</span><span class="op">*</span><span class="dv">10000</span> <span class="op">+</span> <span class="fl">0.2</span><span class="op">*</span><span class="dv">18000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<pre><code>15600.0</code></pre>
+</div>
+</div>
 <section id="another-kind-of-mean" class="level3">
 <h3 class="anchored" data-anchor-id="another-kind-of-mean">Another Kind of Mean</h3>
-<div class="cell">
-
+<div class="cell" data-execution_count="3">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">12000</span> <span class="op">*</span> <span class="dv">23000</span> <span class="op">*</span> <span class="dv">15000</span> <span class="op">*</span> <span class="dv">10000</span> <span class="op">*</span> <span class="dv">18000</span>) <span class="op">**</span> (<span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="27">
+<pre><code>14943.577121499638</code></pre>
 </div>
-</section>
-<section id="persistence---refer-to-value-in-memory" class="level3">
-<h3 class="anchored" data-anchor-id="persistence---refer-to-value-in-memory">Persistence - Refer to value in memory</h3>
-<div class="cell">
-
 </div>
+<p>This way of computing mean is the geometric mean. That also gives us a value (though different from that arithmetic mean) we can compare our 2021 revenue with. See the mathematical representation below.</p>
+</section>
+<section id="to-do" class="level3">
+<h3 class="anchored" data-anchor-id="to-do">To Do</h3>
+<ol type="1">
+<li>Calculate the harmonic mean of the revenues and compare it with the arithmetic and geometric means. What can you say about the three means (arithmetic, geometric and harmonic)?</li>
+</ol>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the harmonic mean of the revenues.</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 5 / ((1/12000) + (1/23000) + (1/15000) + (1/10000) + (1/18000))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<p>What have we learned so far about python programming language? We have been exposed to basic python syntax and seen some arithmetic operators like addition (<code>+</code>), division (<code>/</code>), multiplication (<code>*</code>), and exponent (<code>**</code>). We encountered some data types. For instance, our revenues are integers (e.g., <code>12000</code>), however, the result of our mean calculation is a float (e.g., <code>15600.0</code>), typically recognized by the presence of decimal point in the number. You can verify this by typing in the interpreter or console, <code>type(12000)</code> and <code>type(15600.0)</code>. If we insist that our arithmetic mean should be an integer, know that python has a concept of integer division, thus instead of <code>/</code>, we do <code>//</code>. Try this: <code>(12000 + 23000 + 15000 + 10000 + 18000) // 5</code>.</p>
+<p>Remember, the idea of operators and data types form the basis of a programming language. If we understand the basis well enough, we can assemble our knowledge into constructing complicated code in python, employing the analytical method of inquiry we talked about.</p>
 </section>
 </section>
-<section id="sequencing-structures-and-collection" class="level2">
-<h2 class="anchored" data-anchor-id="sequencing-structures-and-collection">Sequencing Structures and Collection</h2>
-<div class="cell">
-
+<section id="persistence---refer-to-value-in-memory" class="level2">
+<h2 class="anchored" data-anchor-id="persistence---refer-to-value-in-memory">Persistence - Refer to value in memory</h2>
+<p>If we want to use the result of our geometric mean for instance, we have to compute it again. The initial computation is lost it in the sea of the computer’s memory. To let it persist and hence re-use it, we have to assign it to a variable.</p>
+<div class="cell" data-execution_count="5">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>mean_rev <span class="op">=</span> (<span class="dv">12000</span> <span class="op">*</span> <span class="dv">23000</span> <span class="op">*</span> <span class="dv">15000</span> <span class="op">*</span> <span class="dv">10000</span> <span class="op">*</span> <span class="dv">18000</span>) <span class="op">**</span> (<span class="fl">0.2</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>mean_rev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="29">
+<pre><code>14943.577121499638</code></pre>
 </div>
-<section id="indexing-and-slicing" class="level3">
-<h3 class="anchored" data-anchor-id="indexing-and-slicing">Indexing and Slicing</h3>
-<div class="cell">
-
 </div>
-</section>
-<section id="looping" class="level3">
-<h3 class="anchored" data-anchor-id="looping">Looping</h3>
-<div class="cell">
-
+<p>Be mindful of the name of the variable, Python has rules on how to construct a valid variable name. You will get used to the rules very quickly but try and use a descriptive name that to some extent describes the value it contains. For instance, we can infer from <code>mean_rev</code> that it refers to the mean of revenues.</p>
+<p>The assignment operator <code>=</code> is used to assign what is on the right hand side (RHS) to the variable on the left hand side (LHS) of the operator. Python will first compute the expression on the RHS and then assign the result to the variable on the LHS of the operator.</p>
+<p>Remember the integer division <code>//</code> that returns an integer after dividing two numbers? A more general way to enforce a numeric value like <code>mean_rev</code> (which is a float) to be an integer is by casting it by wrapping it in <code>int</code> constructor function.</p>
+<div class="cell" data-execution_count="6">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">int</span>(mean_rev)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="30">
+<pre><code>14943</code></pre>
 </div>
-</section>
+</div>
 </section>
 
 </main>
