@@ -86,7 +86,7 @@ What operators will you use to check if a value is less than or equal to another
 ## If Statement
 
 ```{python}
-if 16000 > mean_rev:
+if 16000 < mean_rev:
   print('above typical revenue') 
 ```
 
@@ -110,7 +110,7 @@ Python has a concise one-liner for writing if-else statement. I recommend using 
     [result_when_true] if [condition] else [result_when_false]
 
 ```{python}
-'below typical revenue' if 16000 < mean_rev else 'below typical revenue'
+'above typical revenue' if 16000 > mean_rev else 'below typical revenue'
 ```
 
 ## Sequencing Structures and Collection
