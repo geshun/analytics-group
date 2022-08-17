@@ -1,0 +1,97 @@
+---
+title: "Intro to Programming for Data Science"
+author: "geshun"
+format: ipynb
+editor: visual
+---
+
+### Ice Breaker
+
+How do copy the entire list without using the `.copy()` method?
+
+```{python}
+revenues = [12000, 23000, 15000, 10000, 18000]
+```
+
+```{python}
+
+```
+
+### Generator
+
+```{python}
+def double(x_list):
+  result = []
+  for val in x_list:
+    result.append(val * 2)
+  return result
+
+double(revenues)
+
+def double(x_list):
+  return [val * 2 for val in x_list]
+```
+
+Turn the `double()` function into a generator
+
+```{python}
+
+```
+
+### Recursion
+
+```{python}
+def product(x_list):
+  result = 1
+  for val in x_list:
+    result = result * val
+  return result
+
+product(revenues)
+```
+
+Write the above `product()` function as a recursion.
+
+```{python}
+
+```
+
+### Lambda Expression
+
+```{python}
+# with the help of len and sum find the arithmetic mean using lambda expression
+```
+
+## Store the revenue year
+
+We want to record the year of the revenue as part of the data. How do we do that? Try list of list!
+
+```{python}
+
+```
+
+## Dictionary
+
+Have multiple keys - one for each year
+
+```{python}
+
+```
+
+Have a single key
+
+```{python}
+
+```
+
+### Quick Pandas
+
+Turn the dictionary into `pandas` `Series` and/or `DataFrame`
+
+```{python}
+from pandas import DataFrame, Series
+```
+
+```{python}
+
+```

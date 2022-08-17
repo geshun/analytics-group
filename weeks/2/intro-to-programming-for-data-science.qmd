@@ -80,7 +80,7 @@ mean_rev != 16000 # opposite of equality
 What operators will you use to check if a value is less than or equal to another? Give example.
 
 ```{python}
-
+mean_rev <= 16000
 ```
 
 ## If Statement
@@ -203,7 +203,25 @@ result = []
 for rev in revenues: # loop by item
   result.append(rev + 1000)
   
+add_1000 = result
+```
+
+```{python}
+result = 1
+for rev in revenues:
+  result = result * rev
+  
 result
+```
+
+```{python}
+def product(x):
+  result = 1
+  for val in x:
+    result = result * val
+  return result
+
+product(revenues)
 ```
 
 Note that `rev` variable used in the `for` loop can be any valid python variable. It is just a placeholder to traverse all the items in the revenues list. When we get an item that is in the list, we add `1000` to it and then append it to our empty list.
