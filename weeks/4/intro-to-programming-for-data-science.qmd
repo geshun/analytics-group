@@ -1,7 +1,7 @@
 ---
 title: "Intro to Programming for Data Science"
 author: "geshun"
-format: html
+format: ipynb
 editor: visual
 ---
 
