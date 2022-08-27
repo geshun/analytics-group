@@ -29,7 +29,7 @@ Clean the string output of the above operation and find the mean of the values
 Read files using Pandas
 
 ```{python}
-pd.read_csv("revenues.txt", sep="\t")
+df = pd.read_csv("revenues.txt", sep="\t")
 ```
 
 ### Some R Datasets from Seaborn
@@ -39,34 +39,81 @@ import seaborn as sns
 sns.get_dataset_names()
 ```
 
+Get iris dataset
+
+```{python}
+iris = sns.load_dataset("iris")
+iris
+```
+
 ### Basic Info and Summary
 
 ```{python}
+iris.shape
+iris.dtypes
+iris.columns # can also set: iris.columns = [some list]
+iris.index # can also set: iris.index = [some list]
+iris.info()
+iris.describe()
+iris.isna().sum()
+```
 
+```{python}
+df.index = range(2016, 2021)
 ```
 
 ### Filtering Records
 
 ```{python}
-
+iris.head()
+iris.tail()
+iris.loc[0] # advisable to use .loc for labeled index other than ints
+iris.iloc[:4]
+iris.iloc[[3]] # returns DataFrame
+iris.query("sepal_length < 5")
 ```
 
 ### Selecting Fields
 
 ```{python}
-
+iris['species'].unique()
+iris.drop('species', axis=1)
 ```
 
 ## Mutating Columns
 
 ```{python}
-
+df['double_revenue'] = df['revenue'] * 2
+df.assign(triple_revenue = df['revenue'] * 3)
 ```
 
 ## Aggregation
 
 ```{python}
-
+iris.max()
+iris['species'].value_counts()
+iris.groupby(['species']).size()
+iris.groupby(['species'])['sepal_length'].min()
 ```
 
-### 
+```{python}
+iris.groupby(['species']).agg({'sepal_length': ['min', 'max']})
+```
+
+```{python}
+iris.groupby(['species']).agg(['min', 'max'])
+```
+
+```{python}
+iris.corr()
+iris.drop('species', axis=1).cumsum()
+```
+
+```{python}
+diamonds = sns.load_dataset("diamonds")
+diamonds.groupby(["cut"])["price"].mean()
+```
+
+```{python}
+diamonds.groupby('cut').size().plot()
+```
