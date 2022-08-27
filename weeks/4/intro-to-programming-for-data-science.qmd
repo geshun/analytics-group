@@ -13,6 +13,12 @@ import pandas as pd
 
 Open and read files using vanilla python
 
+```{r}
+f <- file("revenues.txt", 'r')
+x <- readLines(f)
+close(f)
+```
+
 ```{python}
 f = open('revenues.txt', 'r')
 rev = f.read()
@@ -20,16 +26,45 @@ f.close()
 rev
 ```
 
+```{python}
+with open('revenues.txt', 'r') as f:
+  rev = f.read()
+```
+
 Clean the string output of the above operation and find the mean of the values
 
 ```{python}
+revs = rev.split()
+```
 
+```{python}
+[int(val) for val in revs if val.isnumeric()]
+```
+
+```{python}
+revs = rev.split()
+del revs[0]
+[int(val) for val in revs]
+```
+
+```{python}
+revs = rev.split()
+revenues = []
+for val in revs:
+  try:
+    revenues.append(int(val))
+  except ValueError:
+    continue
 ```
 
 Read files using Pandas
 
 ```{python}
 df = pd.read_csv("revenues.txt", sep="\t")
+```
+
+```{python}
+df.mean()
 ```
 
 ### Some R Datasets from Seaborn
