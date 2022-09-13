@@ -60,7 +60,7 @@ for val in revs:
 Read files using Pandas
 
 ```{python}
-df = pd.read_csv("revenues.txt", sep="\t")
+df = pd.read_csv("revenues.txt", sep="\n")
 ```
 
 ```{python}

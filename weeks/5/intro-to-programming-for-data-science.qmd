@@ -1,0 +1,130 @@
+---
+title: "Intro to Programming for Data Science"
+author: "geshun"
+format: ipynb
+editor: visual
+---
+
+##### Import pandas
+
+```{python}
+
+```
+
+##### Open and read files using vanilla python
+
+> File name is `alpha 12-Sep-2022 21-28-50.csv`
+
+```{python}
+
+```
+
+```{python}
+
+```
+
+```{python}
+
+```
+
+```{python}
+
+```
+
+##### Read file using Pandas
+
+```{python}
+
+```
+
+##### Get Info and summary about the data
+
+The knowledge gained should be useful for processing the data for later analysis.
+
+```{python}
+
+```
+
+```{python}
+
+```
+
+```{python}
+
+```
+
+```{python}
+
+```
+
+```{python}
+
+```
+
+```{python}
+
+```
+
+```{python}
+
+```
+
+##### Create analytical dataset
+
+```{python}
+
+```
+
+```{python}
+
+```
+
+```{python}
+
+```
+
+```{python}
+
+```
+
+```{python}
+
+```
+
+```{python}
+
+```
+
+```{python}
+
+```
+
+##### Save dataset
+
+```{python}
+
+```
+
+##### Gaining insight from data
+
+```{python}
+
+```
+
+```{python}
+
+```
+
+```{python}
+
+```
+
+```{python}
+
+```
+
+##### Import matplotlib
+
+```{python}
+
+```
