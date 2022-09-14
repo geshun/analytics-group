@@ -103,13 +103,13 @@ The knowledge gained should be useful for processing the data for later analysis
 
 ```
 
-##### Compare your result with this
+##### Compare your result with this: If after transforming your data, you get something similar, then things are getting interesting. 
 
 ```{python}
 from pandas import read_csv
 from numpy import nan
 
-url = "https://raw.githubusercontent.com/geshun/analytics-group/main/weeks/5/alpha%2012-Sep-2022%2021-28-50.csv"
+url = "https://raw.githubusercontent.com/geshun/analytics-group/main/weeks/5/alpha-12-Sep-2022%2021-28-50.csv"
 
 dt = read_csv(
   url,
