@@ -13,7 +13,7 @@ editor: visual
 
 ##### Open and read files using vanilla python
 
-> File name is `alpha 12-Sep-2022 21-28-50.csv`
+> File name is `alpha-12-Sep-2022 21-28-50.csv`
 
 ```{python}
 
@@ -34,7 +34,11 @@ editor: visual
 ##### Read file using Pandas
 
 ```{python}
+# downloaded file
+```
 
+```{python}
+# directly from github
 ```
 
 ##### Get Info and summary about the data
@@ -97,6 +101,31 @@ The knowledge gained should be useful for processing the data for later analysis
 
 ```{python}
 
+```
+
+##### Compare your result with this
+
+```{python}
+from pandas import read_csv
+from numpy import nan
+
+url = "https://raw.githubusercontent.com/geshun/analytics-group/main/weeks/5/alpha%2012-Sep-2022%2021-28-50.csv"
+
+dt = read_csv(
+  url,
+  skip_blank_lines=True,
+  dtype={
+    "transaction_type": "category",
+    "transaction_category": "category"
+  },
+  converters={
+    "transaction_unit_price": lambda x: float(x) if len(x.strip()) != 0 else nan,
+    "transaction_total_cost": lambda x: float(x.replace(",", "")) if len(x.strip()) != 0 else nan
+  },
+  parse_dates=["transaction_date"]
+)
+
+dt.info()
 ```
 
 ##### Save dataset
