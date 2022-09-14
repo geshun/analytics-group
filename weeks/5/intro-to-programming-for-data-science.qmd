@@ -103,7 +103,7 @@ The knowledge gained should be useful for processing the data for later analysis
 
 ```
 
-##### Compare your result with this: If after transforming your data, you get something similar, then things are getting interesting. 
+##### Compare your result with this: If after transforming your data, you get something similar, then things are getting interesting.
 
 ```{python}
 from pandas import read_csv
@@ -113,7 +113,8 @@ url = "https://raw.githubusercontent.com/geshun/analytics-group/main/weeks/5/alp
 
 dt = read_csv(
   url,
-  skip_blank_lines=True,
+  skipfooter=15,
+  engine="python",
   dtype={
     "transaction_type": "category",
     "transaction_category": "category"
