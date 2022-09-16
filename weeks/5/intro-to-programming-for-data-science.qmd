@@ -5,10 +5,18 @@ format: ipynb
 editor: visual
 ---
 
+```{r}
+reticulate::use_condaenv("base")
+```
+
 ##### Import pandas
 
-```{python}
+Include `numpy` and `matplotlib`, we may use them down the line.
 
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
 ```
 
 ##### Open and read files using vanilla python
@@ -16,29 +24,36 @@ editor: visual
 > File name is `alpha-12-Sep-2022 21-28-50.csv`
 
 ```{python}
+with open("alpha-12-Sep-2022 21-28-50.csv", "r") as f:
+  transaction = f.read()
 
+transaction
 ```
+
+We see that a lot of work needs to be done on `transaction` string object if we want to get it into tabular/rectangular form or preprocess so that numeric fields are actually numeric.
+
+> We can attempt to read the `.csv` file using the `csv` package which comes with standard python.
 
 ```{python}
-
+import csv
+with open("alpha-12-Sep-2022 21-28-50.csv", "r") as file:
+  trans = csv.reader(file)
+  for line in trans:
+    print(line)
 ```
 
-```{python}
-
-```
-
-```{python}
-
-```
+> This will be great if the idea is to process the file line (row) by line.
 
 ##### Read file using Pandas
 
 ```{python}
-# downloaded file
+df = pd.read_csv("alpha-12-Sep-2022 21-28-50.csv")
 ```
 
+File can be read directly from github.
+
 ```{python}
-# directly from github
+df = pd.read_csv("https://raw.githubusercontent.com/geshun/analytics-group/main/weeks/5/alpha-12-Sep-2022%2021-28-50.csv")
 ```
 
 ##### Get Info and summary about the data
@@ -46,61 +61,117 @@ editor: visual
 The knowledge gained should be useful for processing the data for later analysis.
 
 ```{python}
+df.shape
+```
 
+> `df.shape` Gives a sense of how many records (rows) or fields (columns) we are dealing with. Some data pre-processing can increase (or decrease) the number of fields or decrease the number of records (rows) - like dropping records with missing values.
+
+```{python}
+df.info()
+```
+
+> `df.info()` Makes us aware of the data types of our columns. Here, you should begin to find out if the data types produced by your `pd.read_csv()` are what you intend to work with as they are or change them. When the non-null count is not the same as the number of entries, we conceive the idea that `pd.read_csv()` read in some entries as `null`.
+
+The information provided by `df.info()` method, can also be established via the following:
+
+```{python}
+df.dtypes
 ```
 
 ```{python}
+df.isnull().sum()
+```
 
+Another piece of check is duplicates and it can be done using `duplicated()` method of a `DataFrame`. Can you try understanding what caused the duplicates in the data?
+
+```{python}
+df.duplicated().sum()
+```
+
+> Before you drop duplicates (de-duplicate) or remove missing values, there is an important question one needs to address. What set of fields identify a unique record in your data? This is the idea of primary key in database terminology. In our case, only the `transaction_id` field is the unique record identifier. This field should always have a value (hence, can't be null), however, `df.isnull().sum()` shows that it has null entries.
+
+```{python}
+df.dropna(subset=["transaction_id"], inplace=True)
+```
+
+*Can you explain why we did not just do `df.dropna()`? Also, what is the significant of using `inplace=True`?*
+
+If we had wanted to check whether an entire row in our `DataFrame` has missing value, we could have done `df[df.isnull().all(axis=1)]`
+
+Go ahead and check that we have less records (`18`) than we started with (`33`). However, there are still missing values in our data.
+
+```{python}
+df.nunique()
+```
+
+> `df.nunique()` counts the number of unique entries in each column. One application of this information is to establish if some fields can be stored as `Category`. We normally convert an object field into a category if there are fixed entries. The `transaction_type` field for instance has no missing values and only `4` unique entries. You can know the entries by doing `df.transaction_type.unique()`
+
+##### Create analytical dataset 
+
+We shall take a column and ask if it is in the form we want to work with. Apart from the `transaction_quantity` column, all other was read in as `object` type (`Pandas`' (specifically `numpy`'s) way of saying mixed data type and thus string.
+
+```{python}
+df["transaction_type"] = df["transaction_type"].astype("category")
+df["transaction_type"] = pd.Categorical(df["transaction_type"])
+df = df.astype({"transaction_type": "category"})
+```
+
+> Run any of the code above to cast the `transaction_type` column to categorical.
+
+*In case we also wanted to cast the `transaction_category` column to categorical, how would we have done that together with `transaction_type`?*
+
+```{python}
+#| eval: false
+df["transaction_total_cost"].astype("float")
+```
+
+*The above code unsuccessfully attempts to cast the `transaction_total_cost` as float. Do you understand the error message produced? How will you deal with it?*
+
+```{python}
+#| eval: false
+df["transaction_total_cost"] = pd.to_numeric(df.transaction_total_cost.str.replace(",", ""))
+df["transaction_total_cost"] = df["transaction_total_cost"].str.replace(",", "").astype("float")
+```
+
+> Run any of the above code to cast `transaction_total_cost` as numeric. Realize that, I had to remove the comma in the text prior to casting. In `Pandas`, the `str` method grants us access to methods applicable to strings, and from there we can use the `replace()` method. Here, we are replacing comma `","` with empty string - nothing `""` when we do `replace(",", "")`.
+
+If you want to look too exotic (which perhaps is unnecessary in this case), you can consider this: `df["transaction_total_cost"] = df["transaction_total_cost"].apply(lambda x: float(x.replace(",", "")))`. It uses `lambda` or anonymous function via the `apply` method of a `Series`.
+
+```{python}
+df["transaction_date"] = df["transaction_date"].astype("datetime64[ns]")
+df["transaction_date"] = pd.to_datetime(df["transaction_date"])
+```
+
+> Run any of the above code to get the `transaction_date` field as datetime type.
+
+*We could have converted the `transaction_date` field together with `transaction_type`, can you work that out?*
+
+There is something interesting about the `transaction_unit_price` column. Try doing this and see if you will understand the error produced: `pd.to_numeric(df.transaction_unit_price)` or `df["transaction_unit_price"].astype(float)`
+
+```{python}
+df["transaction_unit_price"].str.strip().apply(lambda x: float(x) if len(x) != 0 else np.nan)
+df["transaction_unit_price"] = pd.to_numeric(df.transaction_unit_price, errors='coerce')
+```
+
+> Run any of the above code to convert `transaction_unit_price` to numeric.
+
+```{python}
+def to_float(x):
+  try:
+    return float(x)
+  except ValueError:
+    return np.nan
 ```
 
 ```{python}
-
+df["transaction_unit_price"].apply(to_float)
 ```
 
-```{python}
-
-```
+We can also decided to write a function and apply it. We wrote a `to_float()` function and applied it. If you care about the list comprehension we talked about during the early days of our meetups see the immediate code below:
 
 ```{python}
-
-```
-
-```{python}
-
-```
-
-```{python}
-
-```
-
-##### Create analytical dataset
-
-```{python}
-
-```
-
-```{python}
-
-```
-
-```{python}
-
-```
-
-```{python}
-
-```
-
-```{python}
-
-```
-
-```{python}
-
-```
-
-```{python}
-
+#| eval: false
+[float(x.strip()) if x.strip().isnumeric() else np.nan for x in df.transaction_unit_price]
 ```
 
 ##### Compare your result with this: If after transforming your data, you get something similar, then things are getting interesting.
