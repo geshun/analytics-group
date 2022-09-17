@@ -128,9 +128,8 @@ df["transaction_total_cost"].astype("float")
 *The above code unsuccessfully attempts to cast the `transaction_total_cost` as float. Do you understand the error message produced? How will you deal with it?*
 
 ```{python}
-#| eval: false
 df["transaction_total_cost"] = pd.to_numeric(df.transaction_total_cost.str.replace(",", ""))
-df["transaction_total_cost"] = df["transaction_total_cost"].str.replace(",", "").astype("float")
+# df["transaction_total_cost"] = df["transaction_total_cost"].str.replace(",", "").astype(float)
 ```
 
 > Run any of the above code to cast `transaction_total_cost` as numeric. Realize that, I had to remove the comma in the text prior to casting. In `Pandas`, the `str` method grants us access to methods applicable to strings, and from there we can use the `replace()` method. Here, we are replacing comma `","` with empty string - nothing `""` when we do `replace(",", "")`.
@@ -245,11 +244,57 @@ df["type"].value_counts().plot.barh()
 *What if we want the count for just goods and services regardless of whether bought or sold?*
 
 ```{python}
-
+df["type"].str.split(expand=True)[0].value_counts()
 ```
 
 *How do we address the above question using `groupby` (which is a more general way of answering segmentation related questions)?*
 
 ```{python}
+df.groupby(["type"]).size()
+```
 
+Exploring `DataFrameGroupBy` object
+
+```{python}
+m = df.groupby(["type"])
+m.ngroups # how many groups
+m.groups # group and the index of the rows that fall within it
+list(m) # see data for each group
+```
+
+Essentially a `groupby` is having filtered data for each of the groups. `Groupby` just splits the data, however, we can apply some aggregation/summarization or function to the grouped data. Consider the question below:
+
+*What is the total cost related to each transaction type?*
+
+```{python}
+df.groupby(["type"])["total_cost"].sum()
+```
+
+*Using the immediate result, establish if there is revenue gain or loss.*
+
+```{python}
+type_cost = df.groupby(["type"])["total_cost"].sum()
+goods = type_cost["Sell Goods"] - type_cost["Buy Goods"]
+services = type_cost["Sell Services"] - type_cost["Buy Services"]
+goods + services
+```
+
+The result above is same as below. We have a loss since the cost is more than amount generated from the farm (thus negative revenue).
+
+```{python}
+type_cost.filter(like="Sell").sum() - type_cost.filter(like="Buy").sum()
+```
+
+If we want to use multiple summary function on a `groupby` object, we can do so via `agg()` method. The two code lines below produce the same result.
+
+```{python}
+df.groupby(["type"]).agg({"total_cost": ["mean", "sum"]})
+df.groupby(["type"])["total_cost"].agg(["mean", "sum"])
+```
+
+*Find the record(s) related to most expensive transaction.*
+
+```{python}
+df[df.total_cost == df.total_cost.max()]
+df[df.total_cost == df.total_cost.max()][["date", "item", "category", "total_cost"]]
 ```
