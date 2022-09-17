@@ -106,7 +106,7 @@ df.nunique()
 
 > `df.nunique()` counts the number of unique entries in each column. One application of this information is to establish if some fields can be stored as `Category`. We normally convert an object field into a category if there are fixed entries. The `transaction_type` field for instance has no missing values and only `4` unique entries. You can know the entries by doing `df.transaction_type.unique()`
 
-##### Create analytical dataset 
+##### Create analytical dataset
 
 We shall take a column and ask if it is in the form we want to work with. Apart from the `transaction_quantity` column, all other was read in as `object` type (`Pandas`' (specifically `numpy`'s) way of saying mixed data type and thus string.
 
@@ -149,7 +149,7 @@ df["transaction_date"] = pd.to_datetime(df["transaction_date"])
 There is something interesting about the `transaction_unit_price` column. Try doing this and see if you will understand the error produced: `pd.to_numeric(df.transaction_unit_price)` or `df["transaction_unit_price"].astype(float)`
 
 ```{python}
-df["transaction_unit_price"].str.strip().apply(lambda x: float(x) if len(x) != 0 else np.nan)
+df["transaction_unit_price"] = df["transaction_unit_price"].str.strip().apply(lambda x: float(x) if len(x) != 0 else np.nan)
 df["transaction_unit_price"] = pd.to_numeric(df.transaction_unit_price, errors='coerce')
 ```
 
@@ -203,28 +203,52 @@ dt.info()
 ##### Save dataset
 
 ```{python}
-
+# df.to_csv("weeks/5/alpha.csv", index=False)
 ```
 
 ##### Gaining insight from data
 
+First let's keep the columns simple and remove the redundant prefix name `transaction_`. We will also drop the last three columns (`source, measure_unit, remark`) we will not need them.
+
+```{python}
+df.columns
+df.rename(columns=lambda col: col.replace("transaction_", ""), inplace=True)
+df = df.iloc[:, :-3] # df.drop(["source", "measure_unit", "remark"], axis=1, inplace=True)
+```
+
+```{python}
+pd.set_option("display.max_columns", 6)
+pd.set_option("display.width", 150)
+```
+
+*How many Purchases and Sales have we made according to the dataset?*
+
+-   This is a segmentation question (dealing with groups) - transactions that are related to purchases and those related to sales.
+
+-   A classic split-apply-combine approach to problem solving
+
+-   Basic count of elements belonging to each group
+
+We ask the following data specific questions:
+
+1.  What field captures information about purchases and sales?
+
+```{python}
+df["type"].value_counts()
+df["type"].value_counts(normalize=True) * 100
+```
+
+```{python}
+df["type"].value_counts().plot.barh()
+```
+
+*What if we want the count for just goods and services regardless of whether bought or sold?*
+
 ```{python}
 
 ```
 
-```{python}
-
-```
-
-```{python}
-
-```
-
-```{python}
-
-```
-
-##### Import matplotlib
+*How do we address the above question using `groupby` (which is a more general way of answering segmentation related questions)?*
 
 ```{python}
 
