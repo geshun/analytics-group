@@ -2,3 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
+*.html
+presentation_files/
+__pycache__/
+.ipynb_checkpoints/

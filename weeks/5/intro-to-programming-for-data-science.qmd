@@ -1,5 +1,6 @@
 ---
 title: "Intro to Programming for Data Science"
+subtitle: Practical Pandas
 author: "geshun"
 format: ipynb
 editor: visual
@@ -196,7 +197,7 @@ dt = read_csv(
   parse_dates=["transaction_date"]
 )
 
-dt.info()
+# dt.info()
 ```
 
 ##### Save dataset
