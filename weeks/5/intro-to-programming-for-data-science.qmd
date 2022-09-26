@@ -93,6 +93,7 @@ df.duplicated().sum()
 
 ```{python}
 df.dropna(subset=["transaction_id"], inplace=True)
+# df = df.dropna(subset=["transaction_id"])
 ```
 
 *Can you explain why we did not just do `df.dropna()`? Also, what is the significant of using `inplace=True`?*
@@ -298,4 +299,40 @@ df.groupby(["type"])["total_cost"].agg(["mean", "sum"])
 ```{python}
 df[df.total_cost == df.total_cost.max()]
 df[df.total_cost == df.total_cost.max()][["date", "item", "category", "total_cost"]]
+```
+
+*What type of transactions occurred in the month of April and what was the cost involved?*
+
+This question gives us the chance to learn how to manipulate a date object in Pandas. In Pandas, a datetime object's properties and methods are exposed via the `dt` attribute.
+
+```{python}
+df[df.date.dt.month == 4].groupby("type")["total_cost"].sum()
+```
+
+*Establish if there is any particular day of the week where we tend to have many transactions.*
+
+Realize that the above ask requires the day of the week, however, that information is not readily available in our data. We can create it. We will decide to turn our day of the week into an ordered categorical variable (you can do otherwise since ordering is not necessary to address the ask above). Take notice of how we used the `cat` attribute to get to the methods and properties of a category data type.
+
+*Can you give a justification why an ordered day of the week is preferable?*
+
+```{python}
+days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+
+df = df.assign(wday = df.date.dt.day_name().astype("category"))
+df = df.assign(wday = df.wday.cat.set_categories(days, ordered=True))
+
+df.wday.value_counts(sort=False) 
+df.groupby("wday").size() 
+```
+
+Though in our dataset and in the `wday` column, there is no entry with the value `Thursday` or `Saturday`, (***you can verify that with `df.wday.unique()`***) the count operation above, rightly indicated that there are no transactions on those days. If we had not turned the `wday` column into a categorical variable with explicit values, `days`, only the days that appear in the `wday` column would have have been displayed.
+
+*Do you know why I had to set `sort=False` in `value_counts()`?*
+
+##### Pivot Tables in Pandas
+
+Start by reading the documentation `help(pd.pivot_table)` and see if you can make sense of the code below.
+
+```{python}
+pd.pivot_table(df, index="category", columns="type", values="total_cost", aggfunc="sum")
 ```
