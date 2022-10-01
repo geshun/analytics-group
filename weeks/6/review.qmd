@@ -47,6 +47,22 @@ Plot the `DataFrame` . What can you say about the plot output?
 
 ```
 
+Plot the average wait time first as a `Series` and then as a `DataFrame`
+
+```{python}
+
+```
+
+```{python}
+
+```
+
+The target is to have an average response time of `8` minutes. Find all records that are above this target.
+
+```{python}
+
+```
+
 How can we establish if the columns are in the desired data types? Are there any type conversion you want to do?
 
 ```{python}
@@ -78,6 +94,10 @@ Convert the `Report Date` index to a datetime object and plot the `DataFrame` . 
 ```
 
 Discuss the information or knowledge you have gained about the data
+
+<div>
+
+</div>
 
 Reset the index of the `DataFrame` so that we have 3 columns
 
