@@ -1,0 +1,128 @@
+---
+title: "Review"
+author: "geshun"
+format: ipynb
+editor: visual
+---
+
+### About Dataset
+
+The file `emergency-calls.csv` contains emergency calls recorded in `2021` in a major city in USA.
+
+`Report Date`: The month data was recorded.
+
+`Emergency Count`: The total number of emergency calls.
+
+`Average Wait Time`: The average time (in minutes) to respond to an emergency call.
+
+### To Do
+
+Import the following packages: `pandas, matplotlib`
+
+```{python}
+
+```
+
+Read the `.csv` file as a `Pandas DataFrame`
+
+```{python}
+
+```
+
+How many observations and features are in the emergency dataset?
+
+```{python}
+
+```
+
+Does the dataset contain any missing values?
+
+```{python}
+
+```
+
+Plot the `DataFrame` . What can you say about the plot output?
+
+```{python}
+
+```
+
+How can we establish if the columns are in the desired data types? Are there any type conversion you want to do?
+
+```{python}
+
+```
+
+Get the summary of the columns to know about the data distribution.
+
+```{python}
+
+```
+
+Set the `Report Date` as the index of the `DataFrame`
+
+```{python}
+
+```
+
+Plot the `DataFrame` again
+
+```{python}
+
+```
+
+Convert the `Report Date` index to a datetime object and plot the `DataFrame` . Do you realize any difference in visualization?
+
+```{python}
+
+```
+
+Discuss the information or knowledge you have gained about the data
+
+Reset the index of the `DataFrame` so that we have 3 columns
+
+```{python}
+
+```
+
+The column names have space in them (and thus can be used as attributes of the `DataFrame`). Do this to verify `df.columns`. Replace the spaces with underscore `_` and convert to lower case. For instance, `Report Date` should be `report_date`
+
+```{python}
+
+```
+
+If the `report_date` field is not datetime object, convert it. Create a new column and call it `report_month` which contains the month name.
+
+```{python}
+
+```
+
+Do you think the `report_month` field should be categorical? If yes how do you convert to categorical? Try providing order if you want to treat the field as categorical.
+
+```{python}
+
+```
+
+Which months in `2021` recorded the maximum and minimum emergency call count?
+
+```{python}
+
+```
+
+Find the average call volume for each quarter of the year
+
+```{python}
+
+```
+
+Is there a correlation between call volume and response time? What can you say about the nature of the correlation?
+
+```{python}
+
+```
+
+Extract a feature from the Emergency Count that can be used as a base predictor for call volume in January 2022. Use the same principle to predict the average wait time.
+
+```{python}
+
+```
