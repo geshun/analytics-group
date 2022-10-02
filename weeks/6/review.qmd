@@ -123,6 +123,8 @@ df.reset_index(inplace=True)
 The column names have space in them (and thus can be used as attributes of the `DataFrame`). Do this to verify `df.columns`. Replace the spaces with underscore `_` and convert to lower case. For instance, `Report Date` should be `report_date`
 
 ```{python}
+# df.columns = [col.replace(" ", "_").lower() for col in df.columns]
+# df.columns = ['report_date', 'emergency_count', 'average_wait_time']
 df.rename(columns=lambda col: col.replace(" ", "_").lower(), inplace=True)
 ```
 
@@ -145,7 +147,19 @@ df[(df.emergency_count == df.emergency_count.max()) | (df.emergency_count == df.
 df.query('emergency_count == emergency_count.max() or emergency_count == emergency_count.min()')
 ```
 
-Find the average call volume for each quarter of the year
+```{python}
+df.nlargest(1, 'emergency_count')
+df.nsmallest(1, 'emergency_count')
+pd.concat([df.nlargest(1, 'emergency_count'), df.nsmallest(1, 'emergency_count')])
+```
+
+Find the average call volume for each quarter of the year:
+
+*You can create the `report_quarter` on the fly while grouping:*
+
+```{python}
+df.groupby(df.report_date.dt.quarter).mean().rename_axis('report_quarter')
+```
 
 ```{python}
 df['report_quarter'] = df.report_date.dt.quarter
