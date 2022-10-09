@@ -21,7 +21,7 @@ The file `emergency-calls.csv` contains emergency calls recorded in `2021` in a 
 
 ### To Do
 
-Import the following packages: `pandas, matplotlib`
+Import the following packages: `pandas` and `matplotlib.pyplot`
 
 ```{python}
 import pandas as pd
