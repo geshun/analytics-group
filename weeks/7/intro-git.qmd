@@ -1,0 +1,20 @@
+---
+title: "Git - Version Control"
+format: html
+editor: visual
+---
+
+## Basic Command Line
+
+1.  `mkdir` to make a directory
+2.  `cd` to change directory
+3.  `ls` to list items in directory (`dir`) for windows
+4.  `touch` to create a file
+
+## Basic Git Commands
+
+1.  `git init` to initialize the current directory as version control
+2.  `git status` to check the current status of your git environment
+3.  `touch .gitignore` create a `.gitignore`
+4.  `git add .` stage all un-staged files in the current directory
+5.  `git commit -m "some message"`
