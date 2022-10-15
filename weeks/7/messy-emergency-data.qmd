@@ -1,7 +1,7 @@
 ---
 title: "messy-emergency-data"
 author: "geshun"
-format: html
+format: ipynb
 editor: visual
 ---
 
@@ -92,3 +92,5 @@ df = pd.read_csv("emergency.csv")
     -   Reason from the solution
 
     -   Reason to the solution
+
+-   To know the end from the beginning
