@@ -60,7 +60,7 @@ def split_emerg(df, col, pattern, n=-1, expand=True):
 )
 ```
 
-To avoid this `TypeError: assign() keywords must be strings`, we rename the columns right away. This way, the default numbers used by `str.split` to name columns will be a string and thus unpacking with `**` will work.
+To avoid this `TypeError: assign() keywords must be strings`, we rename the columns right away. This way, the default numbers used by `str.split` to name columns will be strings and thus unpacking the `DataFrame` or dictionary with `**` will work.
 
 ```{python}
 df = pd.read_csv("emergency.csv")
@@ -78,3 +78,17 @@ df = pd.read_csv("emergency.csv")
   .drop(["Title of Emergency", "Description of Emergency", "2", "3"], axis=1)
 )
 ```
+
+### Analytical Thinking
+
+-   Pandas is a tool (for implementing thought and hypothesis about the data)
+
+-   How to think the problem is important
+
+-   How we formulate what we think is right and how we justify that
+
+-   Verify assumption that a colon is a separator
+
+    -   Reason from the solution
+
+    -   Reason to the solution
