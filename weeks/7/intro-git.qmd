@@ -14,7 +14,9 @@ editor: visual
 ## Basic Git Commands
 
 1.  `git init` to initialize the current directory as version control
-2.  `git status` to check the current status of your git environment
-3.  `touch .gitignore` create a `.gitignore`
-4.  `git add .` stage all un-staged files in the current directory
-5.  `git commit -m "some message"`
+2.  `git config –global user.name "pooh"` set global username
+3.  `git config –global user.email "abc@gmail.com"` set global user email
+4.  `git status` to check the current status of your git environment
+5.  `touch .gitignore` create a `.gitignore` file
+6.  `git add .` stage all un-staged files in the current directory
+7.  `git commit -m "some message"`
