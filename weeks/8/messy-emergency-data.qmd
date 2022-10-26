@@ -1,0 +1,96 @@
+---
+title: "messy-emergency-data"
+author: "geshun"
+format: ipynb
+editor: visual
+---
+
+```{python}
+import pandas as pd
+```
+
+## Old Code
+
+```{python}
+df = pd.read_csv("emergency.csv")
+  
+toe = df['Title of Emergency'].str.split(':', expand=True)
+toe.columns = ['type', 'subtype']
+toe['subtype'] = toe['subtype'].str.replace('-$', '', regex=True)
+  
+doe = df['Description of Emergency'].str.split(';', n=3, expand=True)
+doe['station'] = doe[2].str.extract('Station[:\s](\w*)')
+doe['datetime'] = doe[2].str.replace('-?Station[:\s]\w*', '', regex=True)
+doe['datetime'] = doe[3] + doe['datetime']
+doe['datetime'] = doe['datetime'].str.replace('[;@]', '', regex=True)
+doe.drop([2, 3], axis=1, inplace=True)
+doe.rename(columns={0: 'address', 1: 'town'}, inplace=True)
+doe = doe.apply(lambda x: x.str.title())
+  
+df_final = pd.concat([toe, doe], axis=1)
+df_final = df_final.apply(lambda x: x.str.strip())
+df_final['datetime'] = pd.to_datetime(df_final['datetime'])
+
+df_final
+```
+
+## New Code
+
+```{python}
+def split_emerg(df, col, pattern, n=-1, expand=True):
+  dt =  df[col].str.split(pattern, expand=expand, n=n)
+  dt = pd.concat([df, dt], axis=1)
+  return dt.drop([col], axis=1)
+
+(
+  pd.read_csv("emergency.csv")
+  .pipe(split_emerg, col="Title of Emergency", pattern=":")
+  .rename(columns={0: "type", 1: "subtype"})
+  .pipe(lambda df: df.assign(subtype = df.subtype.str.replace("-$", "", regex=True)))
+  .pipe(split_emerg, col="Description of Emergency", pattern=";", n=3)
+  .pipe(lambda df: df.assign(station = df[2].str.extract("Station[:\s](\w*)")))
+  .assign(**{"datetime": lambda df: df[2].str.replace("-?Station[:\s]\w*", "", regex=True) + df[3]})
+  #.pipe(lambda df: df.assign(datetime = df[2].str.replace("-?Station[:\s]\w*", "", regex=True) + df[3]))
+  .drop([2, 3], axis=1)
+  .rename(columns={0: "address", 1: "town"})
+  .assign(**{col: lambda df, col=col: df[col].str.title() for col in ["subtype", "address", "town"]})
+  .assign(**{"datetime": lambda df: df.datetime.str.replace("[;@]", "", regex=True)})
+  .assign(**{"datetime": lambda df: pd.to_datetime(df.datetime)})
+  # .pipe(lambda df: df.assign(datetime = pd.to_datetime(df.datetime)))
+)
+```
+
+To avoid this `TypeError: assign() keywords must be strings`, we rename the columns right away. This way, the default numbers used by `str.split` to name columns will be strings and thus unpacking the `DataFrame` or dictionary with `**` will work.
+
+```{python}
+df = pd.read_csv("emergency.csv")
+(
+  df
+  .assign(**df["Title of Emergency"].str.split(":", expand=True).rename(columns={0: "type", 1: "subtype"}))
+  .assign(**df["Description of Emergency"].str.split(";", n=3, expand=True).rename(columns=lambda col: str(col)))
+  .assign(**{"subtype": lambda dt: dt.subtype.str.replace("-$", "", regex=True)})
+  .assign(**{"station": lambda dt: dt["2"].str.extract("Station[:\s](\w*)")})
+  .assign(**{"datetime": lambda dt: dt["2"].str.replace("-?Station[:\s]\w*", "", regex=True) + dt["3"]})
+  .assign(**{"datetime": lambda dt: dt.datetime.str.replace("[;@]", "", regex=True)})
+  .assign(**{"datetime": lambda dt: pd.to_datetime(dt.datetime)})
+  .assign(**{col: lambda df, col=col: df[col].str.title() for col in ["subtype", "0", "1"]})
+  .rename(columns={"0": "address", "1": "town"})
+  .drop(["Title of Emergency", "Description of Emergency", "2", "3"], axis=1)
+)
+```
+
+### Analytical Thinking
+
+-   Pandas is a tool (for implementing thought and hypothesis about the data)
+
+-   How to think the problem is important
+
+-   How we formulate what we think is right and how we justify that
+
+-   Verify assumption that a colon is a separator
+
+    -   Reason from the solution
+
+    -   Reason to the solution
+
+-   To know the end from the beginning

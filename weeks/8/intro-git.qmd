@@ -1,0 +1,41 @@
+---
+title: "Git - Version Control"
+format: html
+editor: visual
+---
+
+## Basic Command Line
+
+1.  `mkdir` to make a directory
+2.  `cd` to change directory
+3.  `ls` to list items in directory (`dir`) for windows
+4.  `touch` to create a file
+
+## Basic Git Commands
+
+1.  `git init` to initialize the current directory as version control
+2.  `git config –global user.name "pooh"` set global username
+3.  `git config –global user.email "abc@gmail.com"` set global user email
+4.  `git status` to check the current status of your git environment
+5.  `touch .gitignore` create a `.gitignore` file
+6.  `git add .` stage all un-staged files in the current directory
+7.  `git commit -m "some message"`
+
+## More on Git
+
+1. Create a folder in a desired location: for example `mkdir analytics`. We will make a local copy of the group github repository in this folder. Remember to use `cd` to move to the location you want to create a sub-folder called `analytics`
+2. Copy the URL link to the group repository. Go to the group repo online and using the green code button copy the URL - https://github.com/geshun/analytics-group.git
+3. Getting a local copy of the repository. Clone using `git clone https://github.com/geshun/analytics-group.git`
+4. Create a branch `git switch -c week-8`. We do not want to work directly on the master or main branch so we create a new one. You should see the switch from `main` to `week-8`. Otherwise, you can check the head branch by doing `git branch`. The head branch will have asterisks by it. 
+5. Navigate to the weeks folder using `cd weeks`
+6. Make a copy of week 7 files into another folder week 8 using `cp -r 7 8`
+7. Open one of the files in visual studio code `code intro-git.qmd`
+8. Modify the file and save - you can just type out anything and save
+9. Add to the staging area `git add intro-git.qmd`
+10. Commit the changes `git commit -m "write your own message"`
+11. Switch to the master or main branch `git switch main`
+12. Merge the master/main with the new branch `git merge week-8`
+13. Do `git log` or the simplified way `git log –oneline` to see the historical commits
+14. Use `git diff` to see any difference between the current state and last committed state
+15. Delete the week 8 branch `git branch -d week-8`
+
