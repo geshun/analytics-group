@@ -1,0 +1,81 @@
+---
+title: "data-sources"
+author: "geshun"
+format: html
+editor: visual
+---
+
+## Data Sources
+
+> Answers the question "where is the data and how do I connect to it".
+
+### Forms of Data
+
+1.  Structured
+2.  Semi-structured - json, html, xml
+3.  Unstructured
+
+### Data Sources
+
+1.  Flat file
+2.  Online Services - AWS, Salesforce, Snowflake
+3.  In-house databases
+4.  Web - Wikipedia
+
+```{python}
+import pandas as pd
+from sqlalchemy import create_engine
+import sqlite3 as sq
+```
+
+```{python}
+con = sq.connect("data/valuation.sqlite")
+cur = con.cursor()
+```
+
+```{python}
+sql = "select name from sqlite_master where type='table'"
+cur.execute(sql)
+cur.fetchall()
+```
+
+```{python}
+[s for s in dir(pd) if s.find("read") == 0]
+```
+
+```{python}
+eng = create_engine('sqlite:///data/valuation.sqlite')
+pd.read_sql_table("valuation_new", eng)
+```
+
+```{python}
+sql = "select * from valuation_new"
+pd.read_sql(sql, con)
+```
+
+```{python}
+pd.read_sql(sql, eng)
+```
+
+```{python}
+s = """
+  select 
+    product_code, 
+    count(product_code) as n_valuation
+  from valuation_new 
+  group by product_code
+  order by product_code desc
+"""
+pd.read_sql(s, eng)
+```
+
+```{python}
+valuation = pd.read_sql_table("valuation_new", eng)
+valuation.product_code.value_counts()
+valuation.groupby("product_code").size()
+```
+
+```{python}
+cur.close()
+con.close()
+```
