@@ -1,6 +1,7 @@
 ---
 title: "linear-models"
 author: "geshun"
+<<<<<<< HEAD
 format: ipynb
 editor: visual
 ---
@@ -9,6 +10,12 @@ editor: visual
 reticulate::use_condaenv("base")
 ```
 
+=======
+format: html
+editor: visual
+---
+
+>>>>>>> 5d9507e620d1c6e9df205bcf9a62d91d6013719b
 ## Linear Models
 
 A model is a representation of the real world. A company ($KN^3$) engages Facebook ad as a marketing strategy. The company wants to find a way to increase its revenue and control the cost of advertisement. If we can find an association between ad and revenue (i.e. $revenue = f(ad) + \epsilon$) the company might be able to achieve its goals. The whole idea is determining what this $f$ is. Realize that our $f$ is just approximating (since it's a model and not the real thing) so we add the error term \$\\epsilon\$. The form this function $f$ takes defines if we have a linear model.

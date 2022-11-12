@@ -1,6 +1,7 @@
 ---
 title: "data-sources"
 author: "geshun"
+<<<<<<< HEAD
 format: ipynb
 editor: visual
 ---
@@ -9,6 +10,12 @@ editor: visual
 reticulate::use_condaenv("base")
 ```
 
+=======
+format: html
+editor: visual
+---
+
+>>>>>>> 5d9507e620d1c6e9df205bcf9a62d91d6013719b
 ## Data Sources
 
 > Answers the question "where is the data and how do I connect to it".
