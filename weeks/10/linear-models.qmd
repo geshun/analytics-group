@@ -9,6 +9,137 @@ editor: visual
 reticulate::use_condaenv("base")
 ```
 
+<<<<<<< HEAD
+=======
+## Linear Models
+
+A model is a representation of the real world. A company ($KN^3$) engages Facebook ad as a marketing strategy. The company wants to find a way to increase its revenue and control the cost of advertisement. If we can find an association between ad cost and revenue (i.e. $revenue = f(ad) + \epsilon$) the company might be able to achieve its goals. The whole idea is determining what this $f$ is. Realize that our $f$ is just approximating (since it's a model and not the real thing) so we add the error term $\epsilon$. The form this function $f$ takes defines if we have a linear model.
+
+A linear model can be generally expressed as
+
+$$
+\hat{y}_i = \sum_{j=1}^{n}w_jx_{ij} = w_1x_{i1} + \dots + w_nx_{in}
+$$
+
+where $n$ is the number of features and $i$ is the number of observations (examples).
+
+1.  $w_j$ weights or parameters to be estimated using data
+2.  $\hat{y}_i$ is a linear combination of weighted features
+3.  the form $\hat{y}_i$ takes depends on if we have regression or classification problem
+
+We are saying revenue is just achieved if we scale our cost of advertisement by a factor. However, we can also conceive a scenario where we want to talk about revenue even if no advertisement is made. In that case, we need to include the bias term $w_o$.
+
+$$
+\sum_{j=1}^{n}w_jx_{ij} + w_o = \sum_{j=0}^{n}w_jx_{ij}
+$$
+
+where $x_{i0} = 1$
+
+Consider a simple case of no intercept:
+
+$$
+\begin{bmatrix}
+12000 \\ 23000 \\ 15000 \\ 10000 \\ 18000
+\end{bmatrix} = 
+w\begin{bmatrix}
+300 \\ 450 \\ 360 \\ 300 \\ 400
+\end{bmatrix}
+$$
+
+$w$ is the parameter to be estimated
+
+Suppose we assume that the revenue generated is directly propositional to the cost of ad. That is $y\:\alpha\: x$. And thus, $y = wx$ . If $y = 12000$ and $x = 300$ find the constant of proportionality.
+
+$12000 = 300w \rightarrow w = 12000 / 300 = 40$. Thus, revenue is 40 folds of cost of ad.
+
+```{python}
+def compute_weight(revenue, ad_cost):
+  return revenue / ad_cost
+
+weight = compute_weight(12000, 300)
+
+def predict_revenue(ad_cost, weight):
+  return ad_cost * weight
+
+# how we know how our model is doing
+def find_errors(revenue, prediction):
+  return revenue - prediction
+
+revenue = np.array([12000, 23000, 15000, 10000, 18000])
+ad_cost = np.array([300, 450, 360, 300, 400])
+
+revenue
+pred = predict_revenue(ad_cost, weight)
+find_errors(revenue, pred)
+```
+
+1.  Depending on our choice of revenue and corresponding cost of ad, we come up with a weight. There are couple of issues. First, we did not use all our revenues and ad cost and hence what we come up with is not a reflective of all the revenues we are considering
+2.  The error is not a single value that we can easily interpret. It is a vector. Essentially, our error vector asks the question: how is our prediction similar or close to the actual revenue.
+
+Predicting with averages
+
+```{python}
+avg_revenue = np.mean(revenue)
+avg_ad_cost = np.mean(ad_cost)
+
+weight = compute_weight(avg_revenue, avg_ad_cost)
+
+revenue
+pred = predict_revenue(ad_cost, weight)
+find_errors(revenue, pred)
+```
+
+```{python}
+def plot_model(pred):
+  plt.clf()
+  plt.scatter(ad_cost, revenue, label="actual")
+  plt.scatter(ad_cost, pred, label="predicted")
+  plt.plot(ad_cost, pred, color="orange")
+  plt.xlabel('ad cost')
+  plt.ylabel('revenue')
+  plt.legend()
+  plt.show()
+
+plot_model(pred)
+```
+
+Euclidean Distance
+
+$$
+\sum_{i=1}^n e_i^2 = \sum_{i = 1}^{n}(y - \hat{y})^2
+$$
+
+```{python}
+def euclidean_error(actual, pred):
+  return sum((actual - pred) ** 2)
+
+euclidean_error(revenue, pred) ** (1/2)
+```
+
+Generalization of norm (how a mathematician talk about distance - $\mathcal{L}^p$ norm
+
+$$
+||\hat{e}|| = \left(\sum_{i = 1}^{n}|e_i|^p\right)^{\frac{1}{p}}
+$$
+
+Analytic (Normal or Close Form) Solution. This minimizes the Euclidean distance between the actual and predicted.
+
+```{python}
+X, y = ad_cost, revenue
+X = X.reshape(-1, 1)
+w = np.linalg.inv(X.T.dot(X)).dot(X.T).dot(y)
+w
+```
+
+$$
+y = Xb
+$$
+
+$$
+X^Ty = X^TXb \rightarrow b = (X^TX)^{-1}X^Ty
+$$
+
+>>>>>>> 7395e246d533d164847424f54b4509c3c2f709aa
 ```{python}
 import pandas as pd
 import statsmodels.api as sm
@@ -19,6 +150,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.stats import pearsonr
 plt.style.use('seaborn-whitegrid')
+<<<<<<< HEAD
 ```
 
 ## Linear Models
@@ -97,6 +229,8 @@ weight = compute_weight(avg_revenue, avg_ad_cost)
 revenue
 pred = predict_revenue(ad_cost, weight)
 find_errors(revenue, pred)
+=======
+>>>>>>> 7395e246d533d164847424f54b4509c3c2f709aa
 ```
 
 ```{python}
