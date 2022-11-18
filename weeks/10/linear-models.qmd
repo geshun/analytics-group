@@ -9,8 +9,18 @@ editor: visual
 reticulate::use_condaenv("base")
 ```
 
-<<<<<<< HEAD
-=======
+```{python}
+import pandas as pd
+import statsmodels.api as sm
+from math import sqrt
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.stats import pearsonr
+plt.style.use('seaborn-whitegrid')
+```
+
 ## Linear Models
 
 A model is a representation of the real world. A company ($KN^3$) engages Facebook ad as a marketing strategy. The company wants to find a way to increase its revenue and control the cost of advertisement. If we can find an association between ad cost and revenue (i.e. $revenue = f(ad) + \epsilon$) the company might be able to achieve its goals. The whole idea is determining what this $f$ is. Realize that our $f$ is just approximating (since it's a model and not the real thing) so we add the error term $\epsilon$. The form this function $f$ takes defines if we have a linear model.
@@ -139,19 +149,6 @@ $$
 X^Ty = X^TXb \rightarrow b = (X^TX)^{-1}X^Ty
 $$
 
->>>>>>> 7395e246d533d164847424f54b4509c3c2f709aa
-```{python}
-import pandas as pd
-import statsmodels.api as sm
-from math import sqrt
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
-import matplotlib.pyplot as plt
-import numpy as np
-from scipy.stats import pearsonr
-plt.style.use('seaborn-whitegrid')
-<<<<<<< HEAD
-```
 
 ## Linear Models
 
@@ -229,8 +226,6 @@ weight = compute_weight(avg_revenue, avg_ad_cost)
 revenue
 pred = predict_revenue(ad_cost, weight)
 find_errors(revenue, pred)
-=======
->>>>>>> 7395e246d533d164847424f54b4509c3c2f709aa
 ```
 
 ```{python}
