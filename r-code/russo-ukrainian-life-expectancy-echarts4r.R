@@ -14,8 +14,6 @@ ru <-
       TRUE ~ NA_real_)
   )
 
-ru <- mm
-
 line_type <- function(country, color) {
   list(
     type = "line",
