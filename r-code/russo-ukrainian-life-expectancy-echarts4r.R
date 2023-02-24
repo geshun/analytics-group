@@ -1,12 +1,10 @@
-library(tidyverse)
 library(echarts4r)
 
-ru <-
-  gapminder::gapminder_unfiltered %>%
-  filter(country %in% c("Russia", "Ukraine"), year > 1991) %>%
-  mutate(lifeExp_ = if_else(min(year) ==  year | max(year) == year, 
-                            lifeExp,
-                            NA_real_))
+ru <- gapminder::gapminder_unfiltered |>
+  subset(country %in% c("Russia", "Ukraine") & year > 1991) |>
+  transform(lifeExp_ = ifelse(year %in% c(min(year), max(year)), 
+                              lifeExp,
+                              NA_real_))
 
 opt <- list(
   dataset = list(
@@ -146,5 +144,5 @@ opt <- list(
   animationDuration = 25000
 )
 
-e_charts() %>% e_list(opt)
+e_charts() |> e_list(opt)
 
