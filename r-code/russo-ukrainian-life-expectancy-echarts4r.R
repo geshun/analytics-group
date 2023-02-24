@@ -3,60 +3,38 @@ library(echarts4r)
 
 ru <-
   gapminder::gapminder_unfiltered %>%
-  filter(country %in% c("Russia", "Ukraine")) %>%
-  filter(year > 1991) %>%
-  mutate(year = lubridate::make_date(year, 1, 1)) %>%
-  rename(life_expectancy = lifeExp) %>% 
-  mutate(
-    life_expectancy_ = case_when(
-      min(year) ==  year ~ life_expectancy,
-      max(year) ==  year ~ life_expectancy,
-      TRUE ~ NA_real_)
-  )
-
-line_type <- function(country, color) {
-  list(
-    type = "line",
-    name = country,
-    smooth = TRUE,
-    data = ru$life_expectancy[ru$country == country],
-    color = color,
-    showSymbol = FALSE,
-    endLabel = list(
-      show = TRUE,
-      formatter = "{a} {c}",
-      fontSize = 19,
-      fontFamily = 'monospace'
-    ),
-    lineStyle = list(width = 3)
-  )
-}
-
-scatter_type <- function(country, color) {
-  list(
-    type = "effectScatter",
-    rippleEffect = list(scale = 4),
-    symbolSize = 12,
-    color = color,
-    data = ru$life_expectancy_[ru$country == country]
-  )
-}
-
-text_element <- function(text, size, bottom) {
-  list(
-    type = "text",
-    right = "center",
-    bottom = bottom,
-    style = list(
-      text = text,
-      font = paste0('bolder ', size, 'px monospace'),
-      fill = 'rgba(100, 100, 100, 0.25)'
-    ),
-    z = 100
-  )
-}
+  filter(country %in% c("Russia", "Ukraine"), year > 1991) %>%
+  mutate(lifeExp_ = if_else(min(year) ==  year | max(year) == year, 
+                            lifeExp,
+                            NA_real_))
 
 opt <- list(
+  dataset = list(
+    list(
+      dimensions = colnames(ru),
+      source = ru
+    ),
+    list(
+      id = "russia",
+      transform = list(
+        type = "filter",
+        config = list(
+          dimension = "country",
+          value = "Russia"
+        )
+      )
+    ),
+    list(
+      id = "ukraine",
+      transform = list(
+        type = "filter",
+        config = list(
+          dimension = "country",
+          value = "Ukraine"
+        )
+      )
+    )
+  ),
   backgroundColor = "#161627",
   title = list(
     text = "Life Expectancy in Russia and Ukraine",
@@ -73,29 +51,12 @@ opt <- list(
       fontFamily = 'monospace'
     )
   ),
-  tooltip = list(
-    trigger = "axis"
-  ),
-  animationDuration = 25000,
-  graphic = list(
-    elements = list(
-      text_element("", 50, 150),
-      text_element("", 40, 115)
-    )
-  ),
   xAxis = list(
     type = "category",
-    data = lubridate::year(ru$year[ru$country == "Russia"]),
     axisLabel = list(
       color = "#bbb",
       fontSize = 15,
       fontFamily = 'monospace'
-    ),
-    splitLine = list(
-      lineStyle = list(
-        color = "#ccc",
-        type = "dashed"
-      )
     )
   ),
   yAxis = list(
@@ -108,22 +69,82 @@ opt <- list(
       fontFamily = 'monospace'
     ),
     splitLine = list(
-      show = TRUE,
       lineStyle = list(
         color = "rgba(100, 100, 100, 0.35)",
         type = "dashed"
-        
       )
     )
   ),
+  tooltip = list(trigger = "axis"),
   series = list(
-    line_type("Russia", "firebrick"),
-    line_type("Ukraine", "rgba(238, 197, 102, 1)"),
-    scatter_type("Russia", "firebrick"),
-    scatter_type("Ukraine", "rgba(238, 197, 102, 1)")
-  )
+    list(
+      name = "Russia",
+      type = "line", 
+      # datasetIndex = 1,
+      datasetId = "russia",
+      encode = list(
+        x = "year", 
+        y = "lifeExp"
+      ),
+      smooth = TRUE,
+      showSymbol = FALSE,
+      color = "#B22222",
+      endLabel = list(
+        show = TRUE,
+        formatter = "{@country} {@lifeExp}",
+        fontSize = 20,
+        fontFamily = 'monospace'
+      ),
+      lineStyle = list(width = 3)
+      
+    ),
+    list(
+      name = "Ukraine",
+      type = "line",
+      # datasetIndex = 2,
+      datasetId = "ukraine",
+      encode = list(
+        x = "year",
+        y = "lifeExp"
+      ),
+      smooth = TRUE,
+      showSymbol = FALSE,
+      color = "rgba(238, 197, 102, 1)",
+      endLabel = list(
+        show = TRUE,
+        formatter = "{@country} {@lifeExp}",
+        fontSize = 19,
+        fontFamily = 'monospace'
+      ),
+      lineStyle = list(width = 3)
+    ),
+    list(
+      type = "effectScatter",
+      datasetIndex = 1,
+      encode = list(
+        x = "year",
+        y = "lifeExp_"
+      ),
+      rippleEffect = list(scale = 4),
+      symbolSize = 12,
+      color = "#B22222",
+      tooltip = list(show = FALSE)
+    ),
+    list(
+      type = "effectScatter",
+      datasetIndex = 2,
+      encode = list(
+        x = "year",
+        y = "lifeExp_"
+      ),
+      rippleEffect = list(scale = 4),
+      symbolSize = 12,
+      color = "rgba(238, 197, 102, 1)",
+      tooltip = list(show = FALSE)
+    )
+  ),
+  animationDuration = 25000
 )
 
-e_chart() %>%
-  e_list(opt)
+e_charts() %>% e_list(opt)
 
