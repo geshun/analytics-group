@@ -2,9 +2,7 @@ library(echarts4r)
 
 ru <- gapminder::gapminder_unfiltered |>
   subset(country %in% c("Russia", "Ukraine") & year > 1991) |>
-  transform(lifeExp_ = ifelse(year %in% c(min(year), max(year)), 
-                              lifeExp,
-                              NA_real_))
+  transform(lifeExp_ = ifelse(year %in% range(year), lifeExp, NA_real_))
 
 opt <- list(
   dataset = list(
@@ -94,7 +92,6 @@ opt <- list(
         fontFamily = 'monospace'
       ),
       lineStyle = list(width = 3)
-      
     ),
     list(
       name = "Ukraine",
@@ -125,7 +122,7 @@ opt <- list(
       ),
       rippleEffect = list(scale = 4),
       symbolSize = 12,
-      color = "#B22222",
+      color = "#b22",
       tooltip = list(show = FALSE)
     ),
     list(
